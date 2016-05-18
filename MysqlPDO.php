@@ -5,7 +5,7 @@ class MysqlPDO
   private static $isDebug = false;
 
   public static function enableDebug(){
-    self::$isDebug = true;
+    MysqlPDO::$isDebug = true;
   }
 
   public function MysqlPDO()
@@ -20,7 +20,7 @@ class MysqlPDO
       return true;
     } catch (PDOException $e) {
       $this->dbh = null;
-      if(self::$isDebug)
+      if(MysqlPDO::$isDebug)
       {
         echo $e->getMessage();
       }
