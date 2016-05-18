@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="keywords" content="短网址, LinkShortener, short link, short url"/>
+    <meta name="description" content="" />
+    <meta name="author" content="Newnius"/>
+    <link rel="icon" href="favicon.ico"/>
+    <title>短网址 | LinkShortener</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+    <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Modal -->
+    <div class="modal fade " id="msgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div id="msg-model-body" class="modal-content panel-success">
+          <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id = "msgModalLabel">短网址生成成功</h4>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  原网址：<h4 id="msg-text-url"></h4>
+                  短网址：<h4 id="msg-text-short"></h4>
+                  <p>你知道吗？登录后可以查看链接访问统计、修改、删除链接</p>
+                </div>
+                <div class="col-md-6 col-sm-6 hidden-xs">
+                  <img id="qr"></img>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <header class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">短网址</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://quickauth.newnius.com/login.php?redirect=http://s.newnius.com/#auth.php">登录</a></li>
+			  <li><a href="http://quickauth.newnius.com/register.php?redirect=http://s.newnius.com/#auth.php">注册</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+      </header>
+
+      <div id="main" class="form ui-widget load-overlay container">
+        <div id="tabs">
+          <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a role="tab" href="#shorten">缩短</a></li>
+            <li role="presentation"><a href="#reverse">还原</a></li>
+          </ul>
+          <div id="msg" class="alert alert-warning" role="alert">
+            <strong>Warning!</strong> Something is wrong.
+          </div>
+          <div id="tab-content" class="tab-content">
+            <div id="shorten" class="tab-pane fade active in">
+              <form class="form" action="#">
+                <div class="form-group input-group input-group-lg">
+                  <label for="url-text" class="sr-only">Shorten</label>
+                  <input type="text" id="url-input" class="form-control" placeholder="在此输入想要缩短的网址" required autofocus autocomplete="off" />
+                  <span class="input-group-btn">
+                    <button id="btn-shorten" type="submit" class="btn btn-default">缩短</button>
+                  </span>
+                </div>
+                <div class="form-group">
+                  <span>自定义短链（可选）</span>
+                <div class="input-group">
+                  <label for="custom-token-text" class="sr-only">Custome Token</label>
+                  <div class="input-group-addon">
+                    <span>http://s.newnius.com/</span>
+                  </div>
+                  <input type="text" id="custom-token-input" class="form-control" placeholder="字母、数字，5-10位" autocomplete="off" />
+                </div>
+                </div>
+              </form>
+            </div>
+            <div id="reverse" class="tab-pane fade">
+              <form class="form" action="#">
+                <div class="input-group input-group-lg">
+                  <label for="token-text" class="sr-only">Reversion</label>
+                  <input type="text" id="token-input" class="form-control" placeholder="在此输入需要还原的短网址" required autocomplete="off" />
+                  <span class="input-group-btn">
+                    <button id="btn-reverse" type="submit" class="btn btn-default">还原</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+	    
+      <!--This div exists to avoid footer from covering main body-->
+      <div class="push"></div>
+    </div>
+    
+    <footer>
+      <div class="footer">
+          <ul class="container nav nav-pills">
+            <li><a href="http://blog.newnius.com?f=ShortLinker" target="_blank">@Newnius</a></li>
+            <li><a href="#help.html#">API</a></li>
+            <li><a href="#help.html#privacy">帮助</a></li>
+            <li><a href="#feedback">反馈</a></li>
+            <li></li>
+          </ul>
+      </div>
+    </footer>
+
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

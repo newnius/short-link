@@ -1,0 +1,35 @@
+body, html{
+  height: 100%;
+}
+
+.logo{
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.wrapper{
+  min-height: 100%;
+  margin: 0 auto -40px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.form{
+  max-width: 566px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+#footer, .push{
+  height: 40px;
+}
+
+.footer{
+  background: #f2f2f2;
+  margin-bottom: 0px;
+}
+#help-nav{
+  position: fixed;
+}
+
+#msg{
+  opacity: 0;
+}
