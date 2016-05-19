@@ -15,7 +15,7 @@
   $freezeTime = $rc->getFreezeTime();
   if($freezeTime > 0)
   {
-    die('Youo are too fast, slow down');
+    die('Yoo are too fast, slow down');
   }
   if(isset($_GET['token']))
   {

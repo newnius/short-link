@@ -11,26 +11,24 @@
    }
  }
 
-	function cr_get_client_ip()
+  function cr_get_client_ip()
   {
-		if(!empty($_SERVER['HTTP_CLIENT_IP']))
+    if(!empty($_SERVER['HTTP_CLIENT_IP']))
     {
-		  $cip = $_SERVER['HTTP_CLIENT_IP'];
-		}
-		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+      $cip = $_SERVER['HTTP_CLIENT_IP'];
+    }
+    elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
     {
-		  $cip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		}
-		elseif(!empty($_SERVER['REMOTE_ADDR']))
+      $cip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+    elseif(!empty($_SERVER['REMOTE_ADDR']))
     {
-		  $cip = $_SERVER['REMOTE_ADDR'];
-		}
-		else
+      $cip = $_SERVER['REMOTE_ADDR'];
+    }
+    else
     {
-		  $cip = '0.0.0.0';
-		}
-		return $cip;
-	}
-
-
+      $cip = '0.0.0.0';
+    }
+    return $cip;
+  }
 ?>

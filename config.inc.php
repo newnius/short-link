@@ -13,9 +13,9 @@
   define('URL_MAX_LENGTH', 500);
 
   /* confihure mysql */
-	define("DB_HOST","localhost");
-	define("DB_NAME","shortlink");
-	define("DB_PORT","3306");
+  define("DB_HOST","localhost");
+  define("DB_NAME","shortlink");
+  define("DB_PORT","3306");
   define("DB_USER","root");
   define("DB_PASSWORD","123456");
 
