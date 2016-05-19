@@ -13,7 +13,7 @@ class RedisDAO
 {
   private static $scheme = 'tcp';
   private static $host = '127.0.0.1';
-  private static $port = 6380;
+  private static $port = 6379;
 
   public static function config($configuration)
   {
@@ -31,7 +31,7 @@ class RedisDAO
       $redis->connect();
       return $redis;
     } catch (Exception $e){
-      echo "Error: {$e->getMessage()}";
+      //echo "Error: {$e->getMessage()}";
       return null;
     }
   }

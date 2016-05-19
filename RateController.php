@@ -30,16 +30,24 @@
   {
     private $key = '';
     private $degree = -1;
+    private static $interval = 60;
     private static $keyPrefix = 'rc:';
     private static $punishmentRuleKeys = array('minDegree', 'freezeTime');
     private static $autoIncrease = true;
 
 
+    /*
+     * @param $key customize your own key, default is ip2long(ip)
+     */
     public function __construct($key = ''){
       $this->key = $key==''?ip2long(cr_get_client_ip()):$key;
       $this->redis = RedisDAO::getConnection();
     }
 
+    /*
+     * @param
+     *
+     */
     public function increaseFatigue($increaseByDegree)
     {
       if(!is_numeric($increaseByDegree))
@@ -58,9 +66,8 @@ LUA;
       {
         return false;
       }
-      $this->degree = $redis->eval($lua_script, 1, self::$keyPrefix.'degree:'.$this->key, $increaseByDegree, 60);
+      $this->degree = $redis->eval($lua_script, 1, self::$keyPrefix.'degree:'.$this->key, $increaseByDegree, self::$interval);
       $rule = $this->whichRuleToPunish();
-      var_dump($rule);
       if($rule != null)
       {
         $this->punish($rule);
@@ -68,8 +75,12 @@ LUA;
       return true;
     }
 
+    /*
+     *
+     * punish directly
+     */
     public function punish($punishmentRule){
-      if(!RateController::validatePunishmentRule($punishmentRule))
+      if(!self::validatePunishmentRule($punishmentRule))
       {
         return false;
       }
@@ -78,16 +89,32 @@ LUA;
       {
         return false;
       }
-      $count = $redis->set(self::$keyPrefix.'punishing:'.$this->key, $punishmentRule['freezeTime']);
-      echo $count;
-      return true;
+      $lua_script = <<<LUA
+      local minDegree = redis.call('get', KEYS[1])
+      if(tonumber(minDegree) == tonumber(ARGV[1])) then
+        return 0
+      else
+        redis.call('set', KEYS[1], ARGV[1])
+        redis.call('expire', KEYS[1], ARGV[2]) 
+      end
+      return 1
+LUA;
+      $count = $redis->eval($lua_script, 1, self::$keyPrefix.'punishing:'.$this->key, $punishmentRule['minDegree'], $punishmentRule['freezeTime']);
+      return $count == 1;
     }
 
+    /*
+     * judge if is fatigued/being punished
+     * note: if you call getFreezeTime() later, do not call this, as it will increase one request
+     */
     public function isFatigued()
     {
-      return false;
+      return $this->getFreezeTime() > 0;
     }
 
+    /*
+     * get current fatigue degree
+     */
     public function getFatigueDegree()
     {
       if($this->degree != -1)
@@ -97,9 +124,9 @@ LUA;
       $redis = RedisDAO::getConnection();
       if($redis == null)
       {
-        return false;
+        return 0;
       }
-      $this->degree = $redis->get(self::$keyPrefix.'degree:'.$this->key);
+      $this->degree = (int)$redis->get(self::$keyPrefix.'degree:'.$this->key);
       if($this->degree == null)
       {
         $this->degree = 0;
@@ -107,56 +134,90 @@ LUA;
       return $this->degree;
     }
 
+    /*
+     *
+     * get punish time left, negative means not being punished
+     *
+     */
     public function getFreezeTime()
     {
       $redis = RedisDAO::getConnection();
       if($redis == null)
       {
-        return false;
+        return -1;
       }
-      //$count = $redis->zadd(self::$keyPrefix.'rules' ,$punishmentRule['freezeTime'], $punishmentRule['minDegree']);
-      return 0;
+      $freezeTime = (int)$redis->ttl(self::$keyPrefix.'punishing:'.$this->key);
+      return $freezeTime;
     }
 
+    /*
+     * get which rule to punish current user
+     * mostly of the time, you dont have to call this, as it is called automatically
+     */
     public function whichRuleToPunish()
     {
       $redis = RedisDAO::getConnection();
       if($redis == null)
       {
-        return false;
+        return null;
       }
-      $rules = $redis->zrevrangebyscore(self::$keyPrefix.'rules', 'inf', $this->degree, 'withscores', 'limit', 0, 1);
+      $rules = $redis->zrevrangebyscore(self::$keyPrefix.'rules', $this->degree, 0,'withscores', 'limit', 0, 1);
       $rule = null;
-      if(count($rules == 1))
+      if(count($rules) == 1)
       {
-        $rule['minDegree'] = array_keys($rules)[0];
-        $rule['freezeTime'] = array_values($rules)[0];
+        $rule['minDegree'] = array_values($rules)[0];
+        $rule['freezeTime'] = array_keys($rules)[0];
       }
       return $rule;
     }
 
+
+    /*
+     * set counting interval, dafault is 60(s)
+     */
+    public static function setInterval($interval)
+    {
+      if(!is_int($interval) || $interval < 0)
+      {
+        return false;
+      }
+      self::$interval = $interval;
+      return true;
+    }
+
+    /*
+     * set key prefix stored in redis, change this to if you have multi apps using RateController module to avlid conflicts
+     */
     public static function setKeyPrefix($keyPrefix)
     {
       if(!is_string($keyPrefix))
       {
         return false;
       }
-      RateController::$keyPrefix = $keyPrefix;
+      self::$keyPrefix = $keyPrefix;
       return true;
     }
 
 
+    /*
+     * auto increase fatigue when in punishment status
+     * not support yet
+     */
     public static function setAutoIncrease($isAutoIncrease){
       if(!is_bool($isAutoIncrease))
       {
         return false;
       }
-      RateController::$autoIncrease = $isAutoIncrease;
+      self::$autoIncrease = $isAutoIncrease;
       return true;
     }
 
+    /*
+     * add an punishment rule
+     * rules will be stored in db, call once only
+     */
     public static function addPunishmentRule($punishmentRule){
-      if(!RateController::validatePunishmentRule($punishmentRule))
+      if(!self::validatePunishmentRule($punishmentRule))
       {
         return false;
       }
@@ -169,9 +230,12 @@ LUA;
       return $count == 1;
     }
 
+    /*
+     * remove an rulementRule
+     */
     public static function removePunishmentRule($punishmentRule)
     {
-      if(!RateController::validatePunishmentRule($punishmentRule))
+      if(!self::validatePunishmentRule($punishmentRule))
       {
         return false;
       }
@@ -180,20 +244,32 @@ LUA;
       {
         return false;
       }
-      $count = $redis->zrem(self::$keyPrefix.'rules', $punishmentRule['minDegree']);
-      return count == 1;
+      $count = $redis->zrem(self::$keyPrefix.'rules', $punishmentRule['freezeTime']);
+      return $count == 1;
     }
-
+    
+    /*
+     * get all rules
+     */
     public static function getAllPunishmentRules(){
       $redis = RedisDAO::getConnection();
       if($redis == null)
       {
-        return false;
+        return null;
       }
       $rules = $redis->zrange(self::$keyPrefix.'rules', 0 ,-1, 'withscores');
-      return $rules;
+      $readableRules = array();
+      foreach($rules as $freezeTime => $minDegree)
+      {
+        $readableRules[] = array('minDegree'=>(int)$minDegree, 'freezeTime'=>$freezeTime);
+      }
+      return $readableRules;
     }
 
+    /*
+     * remove all rules
+     * 
+     */
     public static function cleanPunishmentRules(){
       $redis = RedisDAO::getConnection();
       if($redis == null)
@@ -205,6 +281,9 @@ LUA;
       return true;
     }
 
+    /*
+     * check if punishmentRule is in right format
+     */
     private static function validatePunishmentRule($punishmentRule)
     {
       if(!is_array($punishmentRule))
