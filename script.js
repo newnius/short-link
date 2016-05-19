@@ -33,7 +33,7 @@ $(function(){
     }
     $("#btn-shorten").attr("disabled","disabled");
     $.ajax({
-      url:"http://localhost/s.newnius.com/api.php",
+      url:"api.php",
       dataType: "jsonp",
       data: 
       {
@@ -52,10 +52,9 @@ $(function(){
     });
   }
 
-  var reverse_token = function(shortUrl){
-    var token = shortUrl.substr(shortUrl.lastIndexOf("/") + 1, shortUrl.length);
+  var reverse_token = function(token){
     $.ajax({
-      url:"http://localhost/s.newnius.com/api.php",
+      url:"api.php",
       dataType: "jsonp",
       data: 
       {
@@ -64,7 +63,7 @@ $(function(){
       },
       success: function(data){
         if(data["errno"] == 0){
-          create_success(data['url'], shortUrl);
+          create_success(data['url'], "http://s.newnius.com/"+token);
         }
         else{
           show_error(data["msg"]);
