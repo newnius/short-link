@@ -9,6 +9,14 @@
 
   cr_require_file('config.inc.php');
   cr_require_file('LinkShortener.php');
+  cr_require_file('RateController.php');
+  $rc = new RateController();
+  $rc->increaseFatigue(FATIGUE_GET);
+  $freezeTime = $rc->getFreezeTime();
+  if($freezeTime > 0)
+  {
+    die('Youo are too fast, slow down');
+  }
   if(isset($_GET['token']))
   {
     $res = (new LinkShortener())->toUrl($_GET['token']);
