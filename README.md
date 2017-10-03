@@ -15,3 +15,9 @@ shorten long links
 
 #### rate control
   - use [<code>RateController</code>](http://github.com/newnius/util-php/RateController.php) module to control rate
+
+## TODO
+  - Add `Claim`
+	- ReDesign redis keys
+	- Enable Admin support
+	- Analytics support
