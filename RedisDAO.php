@@ -6,7 +6,7 @@
   {
     die('util functions is required, but file util.php not found');
   }
-  cr_require_file('./predis-1.0.3/autoload.php');
+  cr_require_file('./predis/autoload.php');
 
 
 class RedisDAO
