@@ -1,0 +1,12 @@
+config.inc.php
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Temp files
+*~
+*.swp
+
+# MacOS
+.DS_Store
