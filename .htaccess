@@ -5,6 +5,10 @@ Deny from 222.186.0.0/16
 Allow from all
 
 RewriteRule ^api$ /api.php
+RewriteRule ^service$ /ajax.php
+RewriteRule ^auth$ /auth.php
+RewriteRule ^help$ /help.php
+RewriteRule ^ucenter$ /ucenter.php
 
-RewriteRule ^([0-9a-zA-Z]+)$ /redirect.php?token=$1
+RewriteRule ^go/([0-9a-zA-Z]+)$ /redirect.php?token=$1
 

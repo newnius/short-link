@@ -9,9 +9,13 @@
     <meta name="author" content="Newnius"/>
     <link rel="icon" href="favicon.ico"/>
     <title>短网址 | LinkShortener</title>
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.47/src/js/bootstrap-datetimepicker.min.js"></script>
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="style.css" rel="stylesheet"/>
-    <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.47/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+
   </head>
 
   <body>
@@ -65,59 +69,25 @@
         </div><!-- /.container -->
       </header>
 
-      <div id="main" class="form ui-widget load-overlay container">
-        <div id="tabs">
-          <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a role="tab" href="#shorten">缩短</a></li>
-            <li role="presentation"><a href="#reverse">还原</a></li>
-          </ul>
-          <div id="msg" class="alert alert-warning" role="alert">
-            <strong>Warning!</strong> Something is wrong.
-          </div>
-          <div id="tab-content" class="tab-content">
-            <div id="shorten" class="tab-pane fade active in">
-              <form class="form" action="#">
-                <div class="form-group input-group input-group-lg">
-                  <label for="url-text" class="sr-only">Shorten</label>
-                  <input type="text" id="url-input" class="form-control" placeholder="在此输入想要缩短的网址" required autofocus autocomplete="off" />
-                  <span class="input-group-btn">
-                    <button id="btn-shorten" type="submit" class="btn btn-default">缩短</button>
-                  </span>
-                </div>
-                <div class="form-group">
-                  <span>自定义短链（可选）</span>
-                  <div class="input-group">
-                    <label for="custom-token-text" class="sr-only">Custome Token</label>
-                    <div class="input-group-addon">
-                      <span>http://s.newnius.com/</span>
-                    </div>
-                    <input type="text" id="custom-token-input" class="form-control" placeholder="字母、数字，5-10位" autocomplete="off" />
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div id="reverse" class="tab-pane fade">
-              <form class="form" action="#">
-                <div class="input-group input-group-lg">
-                  <label for="token-text" class="sr-only">Reversion</label>
-                  <div class="input-group-addon">
-                    <span>http://s.newnius.com/</span>
-                  </div>
-                  <input type="text" id="token-input" class="form-control" placeholder="补全短网址" required autocomplete="off" />
-                  <span class="input-group-btn">
-                    <button id="btn-reverse" type="submit" class="btn btn-default">还原</button>
-                  </span>
-                </div>
-              </form>
+      <div class="container">
+        <div class="row">
+          <div class='col-sm-6'>
+            <div class="form-group">
+              <div class='input-group date' id='datetimepicker1'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+              </div>
             </div>
           </div>
+          <script type="text/javascript">
+		      $(function () {
+			      $('#datetimepicker1').datetimepicker();
+		      });
+          </script>
         </div>
-
       </div>
-	    
-      <!--This div exists to avoid footer from covering main body-->
-      <div class="push"></div>
-    </div>
     
     <footer>
       <div class="footer">
@@ -131,7 +101,6 @@
       </div>
     </footer>
 
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
