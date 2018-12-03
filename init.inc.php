@@ -41,7 +41,7 @@ function init_redis()
 function init_logger()
 {
 	$config = new CRObject();
-	$config->set('db_table', 'tel_log');
+	$config->set('db_table', 'ls_log');
 	CRLogger::configure($config);
 }
 
@@ -66,22 +66,24 @@ function init_accessMap()
 		'logs.get' => array('root', 'admin', 'developer', 'normal'),
 		'logs.get_others' => array('root', 'admin'),
 
-		/* contact */
+		/* link */
 		'link.set' => array('root', 'admin', 'developer', 'normal', 'visitor'),
 		'link.get' => array('root', 'admin', 'developer', 'normal', 'visitor'),
-		'link.claim' => array('root', 'admin', 'developer', 'normal'),
 		'link.update' => array('root', 'admin', 'developer', 'normal'),
 		'link.remove' => array('root', 'admin', 'developer', 'normal'),
+		'link.remove_others' => array('root', 'admin'),
 		'link.gets' => array('root', 'admin', 'developer', 'normal'),
+		'link.get_others' => array('root', 'admin'),
 		'link.analyze' => array('root', 'admin', 'developer', 'normal'),
-		'link.gets_others' => array('root', 'admin'),
+		'link.analyze_others' => array('root', 'admin'),
 		'link.block' => array('root', 'admin'),
 		'link.unblock' => array('root', 'admin'),
 
 
 		/* ucenter entry show control */
 		'ucenter.home' => array('root', 'admin', 'developer', 'normal'),
-		'ucenter.contacts' => array('root', 'admin', 'developer', 'normal'),
+		'ucenter.links' => array('root', 'admin', 'developer', 'normal'),
+		'ucenter.links_all' => array('root', 'admin'),
 		'ucenter.logs' => array('root', 'admin', 'developer', 'normal'),
 		'ucenter.logs_all' => array('root', 'admin')
 	);

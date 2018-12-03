@@ -1,5 +1,6 @@
 <?php
 require_once('config.inc.php');
+require_once('global.inc.php');
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -49,12 +50,6 @@ require_once('config.inc.php');
 								<label for="form-set-remark" class="sr-only">Custom Token</label>
 								<input type="text" id="form-set-remark" class="form-control"
 								       placeholder="短链接备注" autocomplete="off"/>
-							</div>
-							<label>最大可点击次数（可选）</label>
-							<div class="form-group form-group-lg">
-								<label for="form-set-limit" class="sr-only">Limit</label>
-								<input type="number" value="-1" id="form-set-limit" class="form-control"
-								       placeholder="-1 表示无限制" autocomplete="off"/>
 							</div>
 							<label>有效期自（可选）</label>
 							<div class="form-group form-group-lg">

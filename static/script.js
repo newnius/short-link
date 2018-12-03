@@ -10,9 +10,3 @@ $("#btn-signout, #btn-signout-header").click(function (e) {
 		window.location.pathname = "/";
 	});
 });
-
-$("#btn-search").click(function (e) {
-	e.preventDefault();
-	var telephone = $("#input-search").val();
-	window.location.href = "/telephone#" + telephone;
-});

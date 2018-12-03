@@ -55,6 +55,7 @@ class Code
 	const RECORD_PAUSED = 37;
 	const RECORD_REMOVED = 38;
 	const RECORD_DISABLED = 39;
+	const RECORD_NOT_IN_VALID_TIME = 40;
 
 	/* rate limit */
 	const TOO_FAST = 30;
@@ -175,6 +176,9 @@ class Code
 
 			case Code::URL_LENGTH_INVALID:
 				return 'url length invalid';
+
+			case Code::RECORD_NOT_IN_VALID_TIME:
+				return 'Not in valid time !';
 
 			default:
 				return 'Unknown error(' . $errno . ') !';

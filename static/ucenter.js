@@ -6,11 +6,13 @@ $(function () {
 		case "logs_all":
 			load_logs('all');
 			break;
-		case "contacts":
-			load_groups('self');
-			register_events_group();
-			load_contacts('self');
-			register_events_contact();
+		case "links":
+			register_events_link();
+			load_links('self');
+			break;
+		case "links_all":
+			register_events_link();
+			load_links('all');
 			break;
 		default:
 			break;

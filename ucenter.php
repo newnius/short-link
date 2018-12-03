@@ -26,8 +26,11 @@ if (isset($_GET['logs'])) {
 } elseif (isset($_GET['logs_all'])) {
 	$page_type = 'logs_all';
 
-} elseif (isset($_GET['contacts'])) {
-	$page_type = 'contacts';
+} elseif (isset($_GET['links'])) {
+	$page_type = 'links';
+
+} elseif (isset($_GET['links_all'])) {
+	$page_type = 'links_all';
 
 } elseif (isset($_GET['home'])) {
 	$page_type = 'home';
@@ -36,7 +39,8 @@ if (isset($_GET['logs'])) {
 
 $entries = array(
 	array('home', '个人主页'),
-	array('contacts', '联系人'),
+	array('links', '我的短链'),
+	array('links_all', '链接管理'),
 	array('logs', '近期登陆'),
 	array('logs_all', '站点日志')
 );
@@ -76,17 +80,6 @@ foreach ($entries as $entry) {
 						<?php } ?>
 					</ul>
 				</div>
-
-				<?php if ($page_type === 'contacts') { ?>
-					<div id="groups" class="panel panel-default">
-						<div class="panel-heading">分组</div>
-						<ul class="list-group">
-							<a class="list-group-item">
-								<span class="text-info">Loading...</span>
-							</a>
-						</ul>
-					</div>
-				<?php } ?>
 			</div>
 
 			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
@@ -109,7 +102,6 @@ foreach ($entries as $entry) {
 							<div class="panel-heading">欢迎页</div>
 							<div class="panel-body">
 								欢迎回来， <?php echo htmlspecialchars($nickname) ?>.<br/>
-								当前 IP: &nbsp; <?= cr_get_client_ip() ?>.<br/>
 								现在时刻: &nbsp; <?php echo date('H:i:s', time()) ?>
 							</div>
 						</div>
@@ -122,18 +114,18 @@ foreach ($entries as $entry) {
 						</div>
 					</div>
 
-				<?php } elseif ($page_type === 'contacts') { ?>
-					<div id="contacts">
+				<?php } elseif ($page_type === 'links' || $page_type === 'links_all') { ?>
+					<div id="links">
 						<div class="panel panel-default">
-							<div class="panel-heading">联系人列表</div>
+							<div class="panel-heading">短链接列表</div>
 							<div class="panel-body">
 								<div class="table-responsive">
 									<div id="toolbar">
-										<button id="btn-contact-add" class="btn btn-primary">
-											<i class="glyphicon glyphicon-plus"></i> 添加联系人
+										<button id="btn-link-add" class="btn btn-primary">
+											<i class="glyphicon glyphicon-plus"></i> 添加短链接
 										</button>
 									</div>
-									<table id="table-contact" data-toolbar="#toolbar" class="table table-striped">
+									<table id="table-link" data-toolbar="#toolbar" class="table table-striped">
 									</table>
 								</div>
 							</div>
@@ -165,16 +157,13 @@ foreach ($entries as $entry) {
 </div>
 <?php require_once('footer.php'); ?>
 
-<script src="static/util.js"></script>
-<script src="static/group.js"></script>
-<script src="static/contact.js"></script>
-<script src="static/ucenter.js"></script>
-<script src="static/search.js"></script>
-
 <script src="//cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/bootstrap-table.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.1/tableExport.min.js"></script>
+
+<script src="static/link.js"></script>
+<script src="static/ucenter.js"></script>
 </body>
 </html>

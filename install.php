@@ -53,7 +53,6 @@ function create_table_link()
                 `remark` varchar(255),
                 `status` int NOT NULL DEFAULT 0,/* 0-normal, 1-paused, 2-disabled, 3-removed */
                 `time` BIGINT NOT NULL,
-                `limit` int,
                 `valid_from` BIGINT,
                 `valid_to` BIGINT,
 				`owner` int NOT NULL,

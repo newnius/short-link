@@ -7,26 +7,25 @@ require_once('util4p/SQLBuilder.class.php');
 class LinkManager
 {
 	/*
-	 * do add contact
+	 * do add link
 	 */
 	public static function add(CRObject $link)
 	{
 		$token = $link->get('token', '');
 		$url = $link->get('url', '');
 		$remark = $link->get('remark', '');
-		$limit = $link->getInt('limit', -1);
 		$valid_from = $link->getInt('valid_from', -1);
 		$valid_to = $link->getInt('valid_to', -1);
 		$owner = $link->get('owner');
 
 		$key_values = array(
-			'token' => '?', 'url' => '?', 'remark' => '?', 'limit' => '?',
+			'token' => '?', 'url' => '?', 'remark' => '?',
 			'valid_from' => '?', 'valid_to' => '?', 'time' => '?', 'owner' => '?'
 		);
 		$builder = new SQLBuilder();
 		$builder->insert('ls_link', $key_values);
 		$sql = $builder->build();
-		$params = array($token, $url, $remark, $limit, $valid_from, $valid_to, time(), $owner);
+		$params = array($token, $url, $remark, $valid_from, $valid_to, time(), $owner);
 		$count = (new MysqlPDO())->execute($sql, $params);
 		return $count === 1;
 	}
@@ -40,20 +39,23 @@ class LinkManager
 		$selected_rows = array();
 		$where = array();
 		$params = array();
+		$opts = array();
 		if ($owner) {
 			$where['owner'] = '?';
 			$params[] = $owner;
+			$where['status'] = '3';
+			$opts['status'] = '!=';
 		}
 		$builder = new SQLBuilder();
 		$builder->select('ls_link', $selected_rows);
-		$builder->where($where);
+		$builder->where($where, $opts);
 		$builder->limit($offset, $limit);
 		$sql = $builder->build();
 		$contacts = (new MysqlPDO())->executeQuery($sql, $params);
 		return $contacts;
 	}
 
-	/* */
+	/* get link by token */
 	public static function get(CRObject $rule)
 	{
 		$token = $rule->get('token');
@@ -65,7 +67,7 @@ class LinkManager
 		$builder->where($where);
 		$sql = $builder->build();
 		$links = (new MysqlPDO())->executeQuery($sql, $params);
-		return count($links) == 1 ? $links[0] : null;
+		return count($links) === 1 ? $links[0] : null;
 	}
 
 	/* */
@@ -88,20 +90,19 @@ class LinkManager
 		$token = $link->get('token', '');
 		$url = $link->get('url', '');
 		$remark = $link->get('remark', '');
-		$limit = $link->getInt('limit', -1);
 		$valid_from = $link->getInt('valid_from', -1);
 		$valid_to = $link->getInt('valid_to', -1);
 		$status = $link->getInt('status', 0);
 
 		$key_values = array(
-			'url' => '?', 'remark' => '?', 'limit' => '?', 'valid_from' => '?', 'valid_to' => '?', 'status' => '?'
+			'url' => '?', 'remark' => '?', 'valid_from' => '?', 'valid_to' => '?', 'status' => '?'
 		);
 		$where = array('token' => '?');
 		$builder = new SQLBuilder();
 		$builder->update('ls_link', $key_values);
 		$builder->where($where);
 		$sql = $builder->build();
-		$params = array($url, $remark, $limit, $valid_from, $valid_to, $status, $token);
+		$params = array($url, $remark, $valid_from, $valid_to, $status, $token);
 		$count = (new MysqlPDO())->execute($sql, $params);
 		return $count !== null;
 	}

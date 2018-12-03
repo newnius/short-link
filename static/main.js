@@ -30,7 +30,6 @@ function set(url, token) {
 	}
 	$("#form-set-submit").attr("disabled", "disabled");
 	var remark = $('#form-set-remark').val();
-	var limit = $('#form-set-limit').val();
 	var valid_from = $('#form-set-valid-from').val();
 	if(valid_from.length !== 0){
 		valid_from = moment(valid_from).unix();
@@ -47,7 +46,6 @@ function set(url, token) {
 			url: url,
 			token: token,
 			remark: remark,
-			limit: limit,
 			valid_from: valid_from,
 			valid_to: valid_to
 		}

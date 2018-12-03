@@ -25,6 +25,10 @@ function csrf_check($action)
 		'claim',
 		'update',
 		'remove',
+		'pause',
+		'resume',
+		'block',
+		'unblock',
 		'report',
 		'signout'
 	);
@@ -65,7 +69,6 @@ switch ($action) {
 		$link->set('token', cr_get_POST('token'));
 		$link->set('url', cr_get_POST('url'));
 		$link->set('remark', cr_get_POST('remark'));
-		$link->set('limit', cr_get_POST('limit'));
 		$link->set('valid_from', cr_get_POST('valid_from'));
 		$link->set('valid_to', cr_get_POST('valid_to'));
 		$res = link_add($link);
@@ -77,18 +80,11 @@ switch ($action) {
 		$res = link_get($link);
 		break;
 
-	case 'claim':
-		$link = new CRObject();
-		$link->set('token', cr_get_POST('token'));
-		$res = link_claim($link);
-		break;
-
 	case 'update':
 		$link = new CRObject();
 		$link->set('token', cr_get_POST('token'));
 		$link->set('url', cr_get_POST('url'));
 		$link->set('remark', cr_get_POST('remark'));
-		$link->set('limit', cr_get_POST('limit'));
 		$link->set('valid_from', cr_get_POST('valid_from'));
 		$link->set('valid_to', cr_get_POST('valid_to'));
 		$res = link_update($link);
@@ -98,6 +94,30 @@ switch ($action) {
 		$link = new CRObject();
 		$link->set('token', cr_get_POST('token'));
 		$res = link_remove($link);
+		break;
+
+	case 'block':
+		$link = new CRObject();
+		$link->set('token', cr_get_POST('token'));
+		$res = link_block($link);
+		break;
+
+	case 'unblock':
+		$link = new CRObject();
+		$link->set('token', cr_get_POST('token'));
+		$res = link_unblock($link);
+		break;
+
+	case 'pause':
+		$link = new CRObject();
+		$link->set('token', cr_get_POST('token'));
+		$res = link_pause($link);
+		break;
+
+	case 'resume':
+		$link = new CRObject();
+		$link->set('token', cr_get_POST('token'));
+		$res = link_resume($link);
 		break;
 
 	case 'list':
@@ -113,12 +133,6 @@ switch ($action) {
 		$link = new CRObject();
 		$link->set('token', cr_get_GET('token'));
 		$res = link_analyze($link);
-		break;
-
-	case 'report':
-		$link = new CRObject();
-		$link->set('token', cr_get_POST('token'));
-		$res = link_report($link);
 		break;
 
 	case 'user_signout':
