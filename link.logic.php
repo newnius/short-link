@@ -37,12 +37,12 @@ function link_add(CRObject $link)
 	} else if (LinkManager::get($link) !== null) {
 		$res['errno'] = Code::RECORD_ALREADY_EXIST;
 	} else {
-		$link->set('owner', Session::get('uid', -1));
+		$link->set('owner', Session::get('uid'));
 		$res['token'] = $link->get('token');
 		$res['errno'] = LinkManager::add($link) ? Code::SUCCESS : Code::UNKNOWN_ERROR;
 	}
 	$log = new CRObject();
-	$log->set('scope', Session::get('uid', '[null]'));
+	$log->set('scope', Session::get('uid'));
 	$log->set('tag', 'link.add');
 	$content = array('link' => $link, 'response' => $res['errno']);
 	$log->set('content', json_encode($content));
@@ -61,13 +61,12 @@ function link_remove(CRObject $link)
 		$res['errno'] = Code::RECORD_NOT_EXIST;
 	} else if ($origin['owner'] !== Session::get('uid') && !AccessController::hasAccess(Session::get('role', 'visitor'), 'link.remove_others')) {
 		$res['errno'] = Code::NO_PRIVILEGE;
-	} else if ($origin['status'] === '2') {
-		$res['errno'] = Code::RECORD_DISABLED;
 	} else if ($origin['status'] === '3') {
 		$res['errno'] = Code::RECORD_REMOVED;
 	} else {
 		$origin['status'] = 3;
 		$res['errno'] = LinkManager::update(new CRObject($origin)) ? Code::SUCCESS : Code::UNKNOWN_ERROR;
+		Cache::expire($link->get('token', '')); // expire cache
 	}
 	$log = new CRObject();
 	$log->set('scope', Session::get('uid'));
@@ -92,6 +91,7 @@ function link_block(CRObject $link)
 	} else {
 		$origin['status'] = 2;
 		$res['errno'] = LinkManager::update(new CRObject($origin)) ? Code::SUCCESS : Code::UNKNOWN_ERROR;
+		Cache::expire($link->get('token', '')); // expire cache
 	}
 	$log = new CRObject();
 	$log->set('scope', Session::get('uid'));
@@ -117,6 +117,7 @@ function link_unblock(CRObject $link)
 	} else {
 		$origin['status'] = 0;
 		$res['errno'] = LinkManager::update(new CRObject($origin)) ? Code::SUCCESS : Code::UNKNOWN_ERROR;
+		Cache::expire($link->get('token', '')); // expire cache
 	}
 	$log = new CRObject();
 	$log->set('scope', Session::get('uid'));
@@ -143,6 +144,7 @@ function link_pause(CRObject $link)
 	} else {
 		$origin['status'] = 1;
 		$res['errno'] = LinkManager::update(new CRObject($origin)) ? Code::SUCCESS : Code::UNKNOWN_ERROR;
+		Cache::expire($link->get('token', '')); // expire cache
 	}
 	$log = new CRObject();
 	$log->set('scope', Session::get('uid'));
@@ -169,6 +171,7 @@ function link_resume(CRObject $link)
 	} else {
 		$origin['status'] = 0;
 		$res['errno'] = LinkManager::update(new CRObject($origin)) ? Code::SUCCESS : Code::UNKNOWN_ERROR;
+		Cache::expire($link->get('token', '')); // expire cache
 	}
 	$log = new CRObject();
 	$log->set('scope', Session::get('uid'));
@@ -190,14 +193,19 @@ function link_update(CRObject $link)
 		$res['errno'] = Code::RECORD_NOT_EXIST;
 	} else if ($origin['owner'] !== Session::get('uid')) {
 		$res['errno'] = Code::NO_PRIVILEGE;
+	} else if ($origin['status'] === '2') {
+		$res['errno'] = Code::RECORD_DISABLED;
+	} else if ($origin['status'] === '3') {
+		$res['errno'] = Code::RECORD_REMOVED;
 	} else if (strlen($link->get('url', '')) < URL_MIN_LENGTH || strlen($link->get('url', '') > URL_MAX_LENGTH)) {
 		$res['errno'] = Code::URL_LENGTH_INVALID;
 	} else {
 		$origin['url'] = $link->get('url');
 		$origin['remark'] = $link->get('remark');
-		$origin['valid_from'] = $link->getInt('valid_form', 0);
-		$origin['valid_to'] = $link->getInt('valid_to', 0);
+		$origin['valid_from'] = $link->getInt('valid_form');
+		$origin['valid_to'] = $link->getInt('valid_to');
 		$res['errno'] = LinkManager::update(new CRObject($origin)) ? Code::SUCCESS : Code::UNKNOWN_ERROR;
+		Cache::expire($link->get('token', '')); // expire cache
 	}
 	$log = new CRObject();
 	$log->set('scope', Session::get('uid'));
@@ -214,9 +222,17 @@ function link_get(CRObject $rule)
 		$res['errno'] = Code::NO_PRIVILEGE;
 		return $res;
 	}
-	$link = LinkManager::get($rule);
+	$link_str = Cache::get($rule->get('token', ''));
+	if ($link_str === null) {
+		$link = LinkManager::get($rule);
+	} else {
+		$link = json_decode($link_str, true);
+	}
 	$res['errno'] = Code::RECORD_NOT_EXIST;
 	if ($link !== null) {
+		if ($link_str === null) {
+			Cache::put($rule->get('token', ''), json_encode($link));
+		}
 		switch ($link['status']) {
 			case 0:
 				$res['errno'] = Code::SUCCESS;
@@ -237,11 +253,12 @@ function link_get(CRObject $rule)
 	if ($res['errno'] === Code::SUCCESS) {
 		$valid_from = (int)$link['valid_from'];
 		$valid_to = (int)$link['valid_to'];
-		if (($valid_from !== -1 && time() < $valid_from) || ($valid_to !== -1 && time() > $valid_to)) {
+		if (($link['valid_from'] !== null && time() < $valid_from) || ($link['valid_to'] !== null && time() > $valid_to)) {
 			$res['errno'] = Code::RECORD_NOT_IN_VALID_TIME;
 			unset($res['token']);
 			unset($res['url']);
 		}
+
 	}
 	return $res;
 }
@@ -267,18 +284,18 @@ function link_gets(CRObject $rule)
 
 function link_analyze(CRObject $rule)
 {
-	if (!AccessController::hasAccess(Session::get('role', 'visitor'), 'contact.analyze')) {
+	if (!AccessController::hasAccess(Session::get('role', 'visitor'), 'link.analyze')) {
 		$res['errno'] = Code::NO_PRIVILEGE;
 		return $res;
 	}
-	if (!LOG_QUERY) {
+	if (!ENABLE_LOG_QUERY) {
 		$res['errno'] = Code::NO_PRIVILEGE;
 		return $res;
 	}
 	$origin = LinkManager::get($rule);
 	if ($origin === null) {
 		$res['errno'] = Code::RECORD_NOT_EXIST;
-	} else if ($origin['owner'] !== Session::get('uid') && !AccessController::hasAccess(Session::get('role', 'visitor'), 'contact.analyze_others')) {
+	} else if ($origin['owner'] !== Session::get('uid') && !AccessController::hasAccess(Session::get('role', 'visitor'), 'link.analyze_others')) {
 		$res['errno'] = Code::NO_PRIVILEGE;
 	} else {
 		$res['hist'] = Counter::query($rule);

@@ -53,9 +53,10 @@ function create_table_link()
                 `remark` varchar(255),
                 `status` int NOT NULL DEFAULT 0,/* 0-normal, 1-paused, 2-disabled, 3-removed */
                 `time` BIGINT NOT NULL,
+                 INDEX(`time`),
                 `valid_from` BIGINT,
                 `valid_to` BIGINT,
-				`owner` int NOT NULL,
+				`owner` int,
 				 INDEX(`owner`)
 			)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci',
 	);

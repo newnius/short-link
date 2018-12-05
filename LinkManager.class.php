@@ -13,9 +13,9 @@ class LinkManager
 	{
 		$token = $link->get('token', '');
 		$url = $link->get('url', '');
-		$remark = $link->get('remark', '');
-		$valid_from = $link->getInt('valid_from', -1);
-		$valid_to = $link->getInt('valid_to', -1);
+		$remark = $link->get('remark');
+		$valid_from = $link->getInt('valid_from');
+		$valid_to = $link->getInt('valid_to');
 		$owner = $link->get('owner');
 
 		$key_values = array(
@@ -46,9 +46,11 @@ class LinkManager
 			$where['status'] = '3';
 			$opts['status'] = '!=';
 		}
+		$order_by = array('time' => 'DESC');
 		$builder = new SQLBuilder();
 		$builder->select('ls_link', $selected_rows);
 		$builder->where($where, $opts);
+		$builder->order($order_by);
 		$builder->limit($offset, $limit);
 		$sql = $builder->build();
 		$contacts = (new MysqlPDO())->executeQuery($sql, $params);
@@ -58,7 +60,7 @@ class LinkManager
 	/* get link by token */
 	public static function get(CRObject $rule)
 	{
-		$token = $rule->get('token');
+		$token = $rule->get('token', '');
 		$selected_rows = array();
 		$where = array('token' => '?');
 		$params = array($token);
@@ -71,27 +73,13 @@ class LinkManager
 	}
 
 	/* */
-	public static function remove(CRObject $contact)
-	{
-		$id = $contact->getInt('id', 0);
-		$where = array('id' => '?');
-		$builder = new SQLBuilder();
-		$builder->delete('tel_contact');
-		$builder->where($where);
-		$sql = $builder->build();
-		$params = array($id);
-		$count = (new MysqlPDO())->execute($sql, $params);
-		return $count > 0;
-	}
-
-	/* */
 	public static function update(CRObject $link)
 	{
 		$token = $link->get('token', '');
 		$url = $link->get('url', '');
-		$remark = $link->get('remark', '');
-		$valid_from = $link->getInt('valid_from', -1);
-		$valid_to = $link->getInt('valid_to', -1);
+		$remark = $link->get('remark');
+		$valid_from = $link->getInt('valid_from');
+		$valid_to = $link->getInt('valid_to');
 		$status = $link->getInt('status', 0);
 
 		$key_values = array(

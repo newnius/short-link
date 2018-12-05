@@ -29,33 +29,33 @@ class Code
 	const USER_NOT_EXIST = 20;
 	const USER_IS_BLOCKED = 21;
 	const USER_IS_REMOVED = 22;
-	const EMAIL_IS_NOT_VERIFIED = 33;
+	const EMAIL_IS_NOT_VERIFIED = 23;
 
-	const USERNAME_MISMATCH_EMAIL = 23;
+	const USERNAME_MISMATCH_EMAIL = 24;
 
-	const CODE_EXPIRED = 24;
-	const EMAIL_ALREADY_VERIFIED = 25;
-	const INVALID_COOKIE = 26;
+	const CODE_EXPIRED = 25;
+	const EMAIL_ALREADY_VERIFIED = 26;
+	const INVALID_COOKIE = 27;
 
 	/* site */
-	const INVALID_DOMAIN = 33;
-	const NEED_VERIFY = 35;
-	const INVALID_PATTERN = 36;
+	const INVALID_DOMAIN = 28;
+	const NEED_VERIFY = 29;
+	const INVALID_PATTERN = 30;
 
 	/* auth */
-	const TOKEN_EXPIRED = 27;
-	const SITE_NOT_EXIST = 28;
-	const INVALID_URL = 29;
-	const INVALID_PARAM = 31;
-	const DOMAIN_MISMATCH = 32;
+	const TOKEN_EXPIRED = 31;
+	const SITE_NOT_EXIST = 32;
+	const INVALID_URL = 33;
+	const INVALID_PARAM = 34;
+	const DOMAIN_MISMATCH = 35;
 
-	const TOKEN_LENGTH_INVALID = 35;
-	const URL_LENGTH_INVALID = 36;
+	const TOKEN_LENGTH_INVALID = 36;
+	const URL_LENGTH_INVALID = 37;
 
-	const RECORD_PAUSED = 37;
-	const RECORD_REMOVED = 38;
-	const RECORD_DISABLED = 39;
-	const RECORD_NOT_IN_VALID_TIME = 40;
+	const RECORD_PAUSED = 38;
+	const RECORD_REMOVED = 39;
+	const RECORD_DISABLED = 40;
+	const RECORD_NOT_IN_VALID_TIME = 41;
 
 	/* rate limit */
 	const TOO_FAST = 30;
@@ -64,124 +64,127 @@ class Code
 	{
 		switch ($errno) {
 			case Code::SUCCESS:
-				return 'Success !';
+				return '成功！';
 
 			case Code::USERNAME_OCCUPIED:
-				return 'Username exists !';
+				return '用户名已存在！';
 
 			case Code::EMAIL_OCCUPIED:
-				return 'Email exists !';
+				return '邮箱已存在！';
 
 			case Code::NO_PRIVILEGE:
-				return 'You don\'t have permission to do this !';
+				return '没有权限执行此项操作，请检查您的登陆状态！';
 
 			case Code::INVALID_USERNAME:
-				return 'Invalid username !';
+				return '无效的用户名！';
 
 			case Code::INVALID_EMAIL:
-				return 'Invalid email !';
+				return '无效的邮箱！';
 
 			case Code::UNKNOWN_ERROR:
-				return 'Unknown error !';
+				return '未知错误！';
 
 			case Code::WRONG_PASSWORD:
-				return 'Wrong password !';
+				return '密码错误！';
 
 			case Code::IN_DEVELOP:
-				return 'In develop ^_^ !';
+				return '正在开发中 ^_^ ！';
 
 			case Code::UNABLE_TO_CONNECT_REDIS:
-				return 'Unable to connect Redis !';
+				return '连接 Redis 失败！';
 
 			case Code::UNABLE_TO_CONNECT_MYSQL:
-				return 'Unable to connect Mysql !';
+				return '连接 Mysql 失败！';
 
 			case Code::NOT_LOGED:
-				return 'You haven\'t loged !';
+				return '您尚未登陆！';
 
 			case Code::USER_NOT_EXIST:
-				return 'User not exist !';
+				return '用户不存在！';
 
 			case Code::INVALID_REQUEST:
-				return 'Invalid request !';
+				return '无效的请求参数！';
 
 			case Code::UNKNOWN_REQUEST:
-				return 'Unknown request !';
+				return '未知请求！';
 
 			case Code::CAN_NOT_BE_EMPTY:
-				return 'Input is empty !';
+				return '必填项不可为空！';
 
 			case Code::FAIL:
-				return 'Failed !';
+				return '失败！';
 
 			case Code::INCOMPLETE_CONTENT:
-				return 'Cannot be empty !';
+				return '参数不能为空！';
 
 			case Code::FILE_NOT_UPLOADED:
-				return 'Upload failed !';
+				return '上传文件失败！';
 
 			case Code::RECORD_NOT_EXIST:
-				return 'Record not found !';
+				return '未找到该条记录！';
 
 			case Code::RECORD_ALREADY_EXIST:
-				return 'Record already exists !';
+				return '该记录已存在！';
 
 			case Code::USER_IS_BLOCKED:
-				return 'Account is blocked !';
+				return '账号已被锁定！';
 
 			case Code::USER_IS_REMOVED:
-				return 'Account is removed !';
+				return '账号已被删除！';
 
 			case Code::INVALID_PASSWORD:
-				return 'Invalid password !';
+				return '无效的密码！';
 
 			case Code::USERNAME_MISMATCH_EMAIL:
-				return 'Username or email not match !';
+				return '账号或密码错误！';
 
 			case Code::CODE_EXPIRED:
-				return 'Code is wrong or expires !';
+				return 'Code 错误或已失效';
 
 			case Code::EMAIL_ALREADY_VERIFIED:
-				return 'Email is already verified !';
+				return 'Email 已经验证！';
 
 			case Code::TOO_FAST:
-				return 'System busy !';
+				return '系统繁忙，请稍后再试！';
 
 			case Code::INVALID_COOKIE:
-				return 'Invalid Cookie !';
+				return '无效的 Cookie ！';
 
 			case Code::TOKEN_EXPIRED:
-				return 'Token expired !';
+				return 'Token 已失效！';
 
 			case Code::SITE_NOT_EXIST:
-				return 'Site not exist !';
+				return '该站点不存在！';
 
 			case Code::INVALID_URL:
-				return 'Invalid url !';
+				return '无效的链接！';
 
 			case Code::INVALID_PARAM:
-				return 'Invalid param !';
+				return '无效的参数！';
 
 			case Code::DOMAIN_MISMATCH:
-				return 'redirect_uri not in allowed hosts !';
+				return 'redirect_uri 不在允许列表！';
 
 			case Code::EMAIL_IS_NOT_VERIFIED:
-				return 'Verify your email first !';
+				return '请验证您的邮箱！';
 
 			case Code::NEED_VERIFY:
-				return 'You have to verify your domain first !';
+				return '请先验证您的站点！';
 
 			case Code::TOKEN_LENGTH_INVALID:
-				return 'token length invalid';
+				return '自定义短链长度不符合要求！';
 
 			case Code::URL_LENGTH_INVALID:
-				return 'url length invalid';
+				return '链接长度不符合要求！';
+
+			case Code::RECORD_DISABLED:
+				return '该条记录已被禁用！';
 
 			case Code::RECORD_NOT_IN_VALID_TIME:
-				return 'Not in valid time !';
+				return '不在有效期内！';
 
 			default:
-				return 'Unknown error(' . $errno . ') !';
+				return '未知错误，错误代码(' . $errno . ') !';
 		}
 	}
 }

@@ -1,7 +1,6 @@
 <?php
 
 require_once('util4p/CRObject.class.php');
-require_once('util4p/MysqlPDO.class.php');
 require_once('util4p/SQLBuilder.class.php');
 
 class Counter

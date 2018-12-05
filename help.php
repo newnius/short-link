@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	<?php require_once('head.php'); ?>
-	<title>帮助中心 | 用户中心</title>
+	<title>帮助中心 | 短链接生成器</title>
 </head>
 <body>
 <div class="wrapper">
@@ -33,7 +33,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-8 col-md-8 col-md-offset-1 ">
 				<div id="introduction" class="panel panel-default">
-					<div class="panel-heading">云通讯录介绍</div>
+					<div class="panel-heading">短链接生成器</div>
 					<div class="panel-body">
 						<p>云通讯录是基于web的在线联系人管理中心。只需一次导入或添加，即可随时随地，在任意设备上使用，避免了更换设备所带来的联系人信息丢失或转移通讯录的麻烦。并且，这一切都是免费的。</p>
 					</div>
@@ -59,8 +59,8 @@
 				<div id="feedback" class="panel panel-default">
 					<div class="panel-heading">反馈</div>
 					<div class="panel-body">
-						<p>感谢使用云通讯录，如果您在使用过程中遇到任何问题，请通过邮箱
-							<a href="mailto:support@newnius.com?subject=From Tel">support@newnius.com</a>
+						<p>感谢使用短链接生成器，如果您在使用过程中遇到任何问题，请通过邮箱
+							<a href="mailto:support@newnius.com?subject=From LS">support@newnius.com</a>
 							联系。
 						</p>
 					</div>

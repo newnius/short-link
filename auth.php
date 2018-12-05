@@ -18,7 +18,7 @@ require_once('init.inc.php');
 
 //check state
 $state = cr_get_GET('state');
-if($state === null || $state !== Session::get('oauth_state')){
+if ($state === null || $state !== Session::get('oauth_state')) {
 	echo 'Auth failed, state check failed!';
 	exit;
 }
@@ -54,10 +54,10 @@ $response = json_decode($spider->getBody(), true);
 
 if ($response['errno'] === 0) {
 	$info = $response['info'];
-	$open_id = ($info!==null && isset($info['open_id']))?$info['open_id']:null;
-	$email = ($info!==null && isset($info['email']))?$info['email']:null;
-	$role = ($info!==null && isset($info['role']))?$info['role']:'normal';
-	$nickname = ($info!==null && isset($info['nickname']))?$info['nickname']:'u2913';
+	$open_id = ($info !== null && isset($info['open_id'])) ? $info['open_id'] : null;
+	$email = ($info !== null && isset($info['email'])) ? $info['email'] : null;
+	$role = ($info !== null && isset($info['role'])) ? $info['role'] : 'normal';
+	$nickname = ($info !== null && isset($info['nickname'])) ? $info['nickname'] : 'u2913';
 
 	$user = new CRObject();
 	$user->set('open_id', $open_id);

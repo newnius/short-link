@@ -1,4 +1,7 @@
 function timeFormatter(unixTimestamp) {
+	if (unixTimestamp === null) {
+		return null;
+	}
 	var d = new Date(unixTimestamp * 1000);
 	d.setTime(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
 	return formatDate(d, '%Y-%M-%d %H:%m');

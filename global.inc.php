@@ -15,9 +15,5 @@ if (!isset($_COOKIE['csrf_token'])) {
 	setcookie('csrf_token', Random::randomString(32));
 }
 
-header("content-type:text/html; charset=utf-8");
-
-date_default_timezone_set('Asia/Shanghai');//'Asia/Shanghai'
-
 /* set no iframe */
 header('X-FRAME-OPTIONS:DENY');

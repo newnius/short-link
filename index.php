@@ -6,7 +6,7 @@ require_once('global.inc.php');
 <html lang="zh-CN">
 <head>
 	<?php require_once('head.php'); ?>
-	<title>短网址 | LinkShortener</title>
+	<title>短网址生成器 | LinkShortener</title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@ require_once('global.inc.php');
 			<div id="main-tabs">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a role="tab" href="#main-link-set">缩短</a></li>
-					<li role="presentation"><a href="#main-link-get">还原</a></li>
+					<li role="presentation"><a role="tab" href="#main-link-get">还原</a></li>
 				</ul>
 				<p>&nbsp;</p>
 				<div id="main-tab-content" class="tab-content">
@@ -55,7 +55,8 @@ require_once('global.inc.php');
 							<div class="form-group form-group-lg">
 								<div class='input-group date date-picker'>
 									<label for="form-set-valid-from" class="sr-only">Valid From</label>
-									<input type='text' class="form-control" placeholder="留空表示不限制" id="form-set-valid-from"/>
+									<input type='text' class="form-control" placeholder="留空表示不限制"
+									       id="form-set-valid-from"/>
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 									</div>
@@ -65,10 +66,11 @@ require_once('global.inc.php');
 							<div class="form-group form-group-lg">
 								<div class='input-group date date-picker'>
 									<label for="form-set-valid-to" class="sr-only">Valid To</label>
-									<input type='text' class="form-control" placeholder="留空表示不限制" id="form-set-valid-to"/>
+									<input type='text' class="form-control" placeholder="留空表示不限制"
+									       id="form-set-valid-to"/>
 									<div class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </div>
+										<span class="glyphicon glyphicon-calendar"></span>
+									</div>
 								</div>
 							</div>
 						</form>
@@ -80,8 +82,8 @@ require_once('global.inc.php');
 									<span><?= BASE_URL ?>/</span>
 								</div>
 								<label for="form-get-token" class="sr-only">Token</label>
-								<input type="text" id="form-get-token" class="form-control" placeholder="补全短网址" required
-								       autocomplete="off"/>
+								<input type="text" id="form-get-token" class="form-control" placeholder="补全短网址"
+								       required/>
 								<span class="input-group-btn">
                                     <button id="form-get-submit" type="submit" class="btn btn-default">还原</button>
                                 </span>

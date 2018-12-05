@@ -16,7 +16,7 @@ if (Session::get('uid') === null) {
 	exit;
 }
 
-$page_type = 'contacts';
+$page_type = 'home';
 $uid = Session::get('uid');
 $nickname = Session::get('nickname');
 

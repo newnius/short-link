@@ -3,19 +3,17 @@
 require_once('util4p/util.php');
 require_once('util4p/CRObject.class.php');
 require_once('util4p/RedisDAO.class.php');
-require_once('util4p/Random.class.php');
 
 class Cache
 {
-	private static $time_out = 0; // 0-never expire
-	private static $bind_ip = false; // bind session with ip, when client ip changes, previous session will be unavailable
-	private static $sid = '';
+	private static $time_out = 300; // 5 min
+	private static $prefix = 'cache';
 
 	/* configuration && initialization */
 	public static function configure(CRObject $config)
 	{
-		self::$time_out = $config->get('time_out', self::$time_out);
-		self::$bind_ip = $config->getBool('bind_ip', self::$bind_ip);
+		self::$time_out = (int)$config->get('time_out', self::$time_out);
+		self::$prefix = $config->get('prefix', self::$prefix);
 	}
 
 	/**/
@@ -25,10 +23,8 @@ class Cache
 		if ($redis === null) {
 			return false;
 		}
-		$redis_key = 'session:' . self::$sid;
-		$redis->hset($redis_key, $key, $value);
-		$redis->hset($redis_key, '_ip', cr_get_client_ip());
-		self::get('_ip');//renew expiration
+		$redis_key = self::$prefix . ':' . $key;
+		$redis->set($redis_key, $value, 'EX', self::$time_out);
 		$redis->disconnect();
 		return true;
 	}
@@ -40,31 +36,25 @@ class Cache
 		if ($redis === null) {
 			return $default;
 		}
-		$redis_key = 'session:' . self::$sid;
-		$list = $redis->hgetall($redis_key);
-		if (self::$bind_ip) {
-			if (!(isset($list['_ip']) && $list['_ip'] === cr_get_client_ip())) {
-				return $default;
-			}
-		}
-		if ($redis->ttl($redis_key) < self::$time_out) {
-			$redis->expire($redis_key, self::$time_out);
+		$redis_key = self::$prefix . ':' . $key;
+		$value = $redis->get($redis_key);
+		if (!is_null($value)) { //hit
+			$redis->expire($redis_key, self::$time_out); // reset time out
+		} else { //miss
+			$value = $default;
 		}
 		$redis->disconnect();
-		if (isset($list[$key])) {
-			return $list[$key];
-		}
-		return $default;
+		return $value;
 	}
 
-	/* expire current session */
-	public static function expire()
+	/* expire by key */
+	public static function expire($key)
 	{
 		$redis = RedisDAO::instance();
 		if ($redis === null) {
 			return false;
 		}
-		$redis_key = 'session:' . self::$sid;
+		$redis_key = self::$prefix . ':' . $key;
 		$redis->del(array($redis_key));
 		$redis->disconnect();
 		return true;

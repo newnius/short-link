@@ -14,6 +14,8 @@ init_mysql();
 init_redis();
 init_logger();
 init_Session();
+init_Cache();
+init_Counter();
 init_accessMap();
 
 function init_mysql()
@@ -46,6 +48,24 @@ function init_logger()
 }
 
 function init_Session()
+{
+	$config = new CRObject();
+	$config->set('time_out', SESSION_TIME_OUT);
+	$config->set('bind_ip', BIND_SESSION_WITH_IP);
+	$config->set('PK', 'username');
+	Session::configure($config);
+}
+
+function init_Cache()
+{
+	$config = new CRObject();
+	$config->set('time_out', SESSION_TIME_OUT);
+	$config->set('prefix', BIND_SESSION_WITH_IP);
+	$config->set('PK', 'username');
+	Session::configure($config);
+}
+
+function init_Counter()
 {
 	$config = new CRObject();
 	$config->set('time_out', SESSION_TIME_OUT);
