@@ -91,6 +91,37 @@ function register_events_link() {
 			$("#form-link-remove").removeAttr("disabled");
 		});
 	});
+
+	$("#modal-analytics-interval").on('click', 'li a', function (e) {
+		if($(this).parent().hasClass('disabled')){
+			return ;
+		}
+		var interval = parseInt($(this).attr('data-interval'));
+		var token = $("#modal-analytics-interval").attr('data-token');
+		$('#modal-analytics').modal('hide');
+		$("#modal-msg").modal('show');
+		$("#modal-msg-content").html('Fetching data, please wait...');
+		var ajax = $.ajax({
+			url: "/service?action=analyze",
+			type: 'GET',
+			data: {
+				token: token,
+				interval: interval
+			}
+		});
+		ajax.done(function (res) {
+			if (res["errno"] === 0) {
+				$("#modal-msg").modal('hide');
+				var rs = res['hist'];
+				show_analytics(token, rs, interval);
+			} else {
+				$("#modal-msg-content").html(res["msg"]);
+			}
+		});
+		ajax.fail(function (jqXHR, textStatus) {
+			$("#modal-msg-content").html("Request failed :" + textStatus);
+		});
+	});
 }
 
 function load_links(scope) {
@@ -227,7 +258,29 @@ function linkOperateFormatter(value, row, index) {
 
 window.linkOperateEvents = {
 	'click .stats': function (e, value, row, index) {
-		//
+		$("#modal-msg").modal('show');
+		$("#modal-msg-content").html('Fetching data, please wait...');
+		var interval = 1;
+		var ajax = $.ajax({
+			url: "/service?action=analyze",
+			type: 'GET',
+			data: {
+				token: row.token,
+				interval: interval
+			}
+		});
+		ajax.done(function (res) {
+			if (res["errno"] === 0) {
+				$("#modal-msg").modal('hide');
+				var rs = res['hist'];
+				show_analytics(row.token, rs, interval);
+			} else {
+				$("#modal-msg-content").html(res["msg"]);
+			}
+		});
+		ajax.fail(function (jqXHR, textStatus) {
+			$("#modal-msg-content").html("Request failed :" + textStatus);
+		});
 	},
 	'click .edit': function (e, value, row, index) {
 		show_link_modal(row);
@@ -318,4 +371,56 @@ function show_link_modal(link) {
 	$('#form-link-remove').removeClass('hidden');
 	$("#form-link-msg").html('');
 	$('#modal-link').modal('show');
+}
+
+function show_analytics(token, rs, interval) {
+	$('#modal-analytics-title').html('访问量统计-' + token);
+	$("#modal-analytics-interval").attr('data-token', token);
+	var labels = [];
+	var data = [];
+	rs.forEach(function (entry) {
+		labels.push(timeFormatter(entry['time']));
+		data.push(entry['cnt']);
+	});
+	var options = {
+		legend: {
+			display: false
+		},
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero: true
+				}
+			}]
+		}
+	};
+	/* recreate canvas to make a new graph */
+	var parent = $('#modal-analytics-chart').parent();
+	$('#modal-analytics-chart').remove();
+	parent.append('<canvas id="modal-analytics-chart"></canvas>');
+
+	var ctx = $('#modal-analytics-chart');
+	new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: labels,
+			datasets: [
+				{
+					data: data, "fill": false, "borderColor": "rgb(75, 192, 192)"
+				}
+			]
+		},
+		options: options
+	});
+
+	var intervals = {'1 Hr': 1, '24 Hrs': 30, '7 Days': 210, '1 Mon': 900, '1 Yr': 43200};
+	var div = $('#modal-analytics-interval');
+	div.empty();
+	$.each(intervals, function (key, value) {
+		var li = '<li role="presentation" class="' + (interval === value ? 'disabled' : '') + '">'
+			+ '<a href="javascript:void(0)" data-interval="' + value + '">' + key + '</a>'
+			+ '</li>';
+		div.append(li);
+	});
+	$('#modal-analytics').modal('show');
 }

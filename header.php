@@ -8,8 +8,8 @@ require_once('init.inc.php');
 $state = Random::randomString(16);
 Session::put('oauth_state', $state);
 
-$oauth_login_url = OAUTH_SITE . '/login?response_type=code&client_id=' . OAUTH_CLIENT_ID . '&redirect_uri=' . BASE_URL . '/auth&state=' . $state . '&scope=email';
-$oauth_register_url = OAUTH_SITE . '/register?response_type=code&client_id=' . OAUTH_CLIENT_ID . '&redirect_uri=' . BASE_URL . '/auth&state=' . $state . '&scope=email';
+$oauth_login_url = OAUTH_SITE . '/login?response_type=code&client_id=' . OAUTH_CLIENT_ID . '&redirect_uri=' . BASE_URL . '/auth&state=' . $state . '&scope=role';
+$oauth_register_url = OAUTH_SITE . '/register?response_type=code&client_id=' . OAUTH_CLIENT_ID . '&redirect_uri=' . BASE_URL . '/auth&state=' . $state . '&scope=role';
 ?>
 <header id="header" class="navbar navbar-default">
 	<div class="container">

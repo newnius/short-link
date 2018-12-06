@@ -132,6 +132,7 @@ switch ($action) {
 	case 'analyze':
 		$link = new CRObject();
 		$link->set('token', cr_get_GET('token'));
+		$link->set('interval', cr_get_GET('interval'));
 		$res = link_analyze($link);
 		break;
 

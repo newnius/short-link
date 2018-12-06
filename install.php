@@ -10,6 +10,7 @@ require_once('init.inc.php');
 create_table_user();
 create_table_link();
 create_table_log();
+create_table_query_log();
 
 function execute_sqls($sqls)
 {
@@ -81,6 +82,27 @@ function create_table_log()
 			  	`ip` BIGINT NOT NULL,
 				 INDEX(`ip`),
 				`content` json 
+			)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci'
+	);
+	execute_sqls($sqls);
+}
+
+function create_table_query_log()
+{
+	$sqls = array(
+//		'DROP `ls_query_log`' => 'DROP TABLE IF EXISTS `ls_query_log`',
+		'CREATE `ls_query_log`' =>
+			'CREATE TABLE `ls_query_log`(
+		  		`id` BIGINT AUTO_INCREMENT,
+	  			 PRIMARY KEY(`id`),
+				`token` VARCHAR(15) NOT NULL,
+				 INDEX(`token`),
+				`ip` BIGINT NOT NULL,
+				`time` BIGINT NOT NULL,
+				 INDEX(`time`),
+				`referer` VARCHAR(256),
+				`ua` VARCHAR(256),
+				`lang` VARCHAR(64)
 			)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci'
 	);
 	execute_sqls($sqls);

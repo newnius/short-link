@@ -3,8 +3,9 @@
 	<div class="modal-dialog">
 		<div class="modal-content panel-success">
 			<div class="modal-header panel-heading">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-result" id = "modal-result-title">短网址生成成功</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-result" id="modal-result-title">短网址生成成功</h4>
 			</div>
 			<div class="modal-body">
 				<div class="container-fluid">
@@ -15,7 +16,7 @@
 							<p>你知道吗？登录后可以查看链接访问统计、修改、删除链接</p>
 						</div>
 						<div class="col-md-6 col-sm-6 hidden-xs">
-							<img id="modal-result-qrcode" src="" />
+							<img id="modal-result-qrcode" src=""/>
 						</div>
 					</div>
 				</div>
@@ -27,7 +28,7 @@
 	</div>
 </div>
 
-<!-- link modal -->
+<!-- msg modal -->
 <div class="modal fade" id="modal-msg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content panel-warning">
@@ -43,7 +44,7 @@
 	</div>
 </div>
 
-<!-- msg modal -->
+<!-- link modal -->
 <div class="modal fade" id="modal-link" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content panel-info">
@@ -106,6 +107,42 @@
 						<span id="form-link-msg" class="text-danger"></span>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- analytics modal -->
+<div class="modal fade" id="modal-analytics" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content panel-default">
+			<div class="modal-header panel-heading">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+				</button>
+				<h4 id="modal-analytics-title" class="modal-title">访问统计</h4>
+			</div>
+			<div class="modal-body">
+				<div class="pull-right">
+					<ul id="modal-analytics-interval" data-token="" class="nav nav-pills nav panel-body">
+						<li role="presentation" class="disabled">
+							<a href="javascript:void(0)" data-interval="1">1 Hr</a>
+						</li>
+						<li role="presentation">
+							<a href="javascript:void(0)" data-interval="30">24 Hrs</a>
+						</li>
+						<li role="presentation">
+							<a href="javascript:void(0)" data-interval="210">7 Days</a>
+						</li>
+						<li role="presentation">
+							<a href="javascript:void(0)" data-interval="900">1 Mon</a>
+						</li>
+						<li role="presentation">
+							<a href="javascript:void(0)" data-interval="43200">1 Yr</a>
+						</li>
+					</ul>
+				</div>
+				<canvas id="modal-analytics-chart"></canvas>
 			</div>
 		</div>
 	</div>

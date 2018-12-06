@@ -1,5 +1,7 @@
 <?php
 
+require_once('predis/autoload.php');
+
 require_once('util4p/util.php');
 require_once('util4p/CRObject.class.php');
 require_once('util4p/Random.class.php');
