@@ -9,6 +9,16 @@ require_once('link.logic.php');
 require_once('config.inc.php');
 require_once('init.inc.php');
 
+if (isset($_COOKIE['last_visit_token']) && $_COOKIE['last_visit_token'] === cr_get_GET('token')) {
+	if (time() - (int)$_COOKIE['last_visit_time'] < 2) { // to fast, seems like an endless loop
+		$code = Code::TOO_FAST;
+		require_once('404.php');
+		exit;
+	}
+}
+setcookie('last_visit_token', cr_get_GET('token'));
+setcookie('last_visit_time', time());
+
 $link = new CRObject();
 $link->set('token', cr_get_GET('token'));
 $res = link_get($link);
@@ -26,7 +36,11 @@ if (ENABLE_LOG_QUERY) {
 
 if ($res['errno'] === Code::SUCCESS) {
 	header('HTTP/1.1 307 Temporary Redirect');
-	header('Location: ' . $link['url']);
+	$url = $res['url'];
+	if (strpos($url, '//') === false) {
+		$url = 'http://' . $url;
+	}
+	header('Location: ' . $url);
 } else {
 	$code = $res['errno'];
 	require_once('404.php');

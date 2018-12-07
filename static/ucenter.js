@@ -24,10 +24,11 @@ function load_logs(scope) {
 	$table.bootstrapTable({
 		url: '/service?action=log_gets&who=' + scope,
 		responseHandler: logResponseHandler,
+		sidePagination: 'server',
 		cache: true,
 		striped: true,
-		pagination: false,
-		pageSize: 25,
+		pagination: true,
+		pageSize: 10,
 		pageList: [10, 25, 50, 100, 200],
 		search: false,
 		showColumns: false,
@@ -53,7 +54,8 @@ function load_logs(scope) {
 			title: 'Tag',
 			align: 'center',
 			valign: 'middle',
-			sortable: false
+			sortable: false,
+			visible: scope === 'all'
 		}, {
 			field: 'time',
 			title: 'Time',
@@ -70,18 +72,38 @@ function load_logs(scope) {
 			formatter: long2ip
 		}, {
 			field: 'content',
+			title: 'Result',
+			align: 'center',
+			valign: 'middle',
+			sortable: false,
+			formatter: resultFormatter
+		}, {
+			field: 'content',
 			title: 'Content',
 			align: 'center',
 			valign: 'middle',
-			sortable: false
+			sortable: false,
+			visible: scope === 'all'
 		}]
 	});
 }
 
 var logResponseHandler = function (res) {
 	if (res['errno'] === 0) {
-		return res['logs'];
+		var tmp = {};
+		tmp["total"] = res["count"];
+		tmp["rows"] = res["logs"];
+		return tmp;
 	}
-	alert(res['msg']);
+	$("#modal-msg-content").html(res["msg"]);
+	$("#modal-msg").modal('show');
 	return [];
+};
+
+var resultFormatter = function (json) {
+	var res = JSON.parse(json);
+	if (res['response'] === 0) {
+		return '<span class="text-success">成功</span>';
+	}
+	return '<span class="text-dander">失败</span>';
 };

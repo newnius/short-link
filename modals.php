@@ -82,7 +82,8 @@
 					<div class="form-group form-group-lg">
 						<div class='input-group date date-picker'>
 							<label for="form-link-valid-from" class="sr-only">Valid From</label>
-							<input type='text' class="form-control" placeholder="留空表示不限制" id="form-link-valid-from"/>
+							<input type='text' class="form-control" placeholder="留空表示不限制" id="form-link-valid-from"
+							       autocomplete="off"/>
 							<div class="input-group-addon">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</div>
@@ -92,7 +93,8 @@
 					<div class="form-group form-group-lg">
 						<div class='input-group date date-picker'>
 							<label for="form-link-valid-to" class="sr-only">Valid To</label>
-							<input type='text' class="form-control" placeholder="留空表示不限制" id="form-link-valid-to"/>
+							<input type='text' class="form-control" placeholder="留空表示不限制" id="form-link-valid-to"
+							       autocomplete="off"/>
 							<div class="input-group-addon">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</div>

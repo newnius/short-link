@@ -53,8 +53,30 @@ class LinkManager
 		$builder->order($order_by);
 		$builder->limit($offset, $limit);
 		$sql = $builder->build();
-		$contacts = (new MysqlPDO())->executeQuery($sql, $params);
-		return $contacts;
+		$links = (new MysqlPDO())->executeQuery($sql, $params);
+		return $links;
+	}
+
+	/* */
+	public static function count(CRObject $rule)
+	{
+		$owner = $rule->get('owner', '');
+		$selected_rows = array('COUNT(1) as cnt');
+		$where = array();
+		$params = array();
+		$opts = array();
+		if ($owner) {
+			$where['owner'] = '?';
+			$params[] = $owner;
+			$where['status'] = '3';
+			$opts['status'] = '!=';
+		}
+		$builder = new SQLBuilder();
+		$builder->select('ls_link', $selected_rows);
+		$builder->where($where, $opts);
+		$sql = $builder->build();
+		$res = (new MysqlPDO())->executeQuery($sql, $params);
+		return intval($res[0]['cnt']);
 	}
 
 	/* get link by token */

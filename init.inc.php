@@ -8,6 +8,8 @@ require_once('util4p/ReSession.class.php');
 require_once('util4p/CRObject.class.php');
 require_once('util4p/AccessController.class.php');
 
+require_once('Cache.class.php');
+require_once('Counter.class.php');
 require_once('config.inc.php');
 
 init_mysql();
@@ -59,19 +61,16 @@ function init_Session()
 function init_Cache()
 {
 	$config = new CRObject();
-	$config->set('time_out', SESSION_TIME_OUT);
-	$config->set('prefix', BIND_SESSION_WITH_IP);
-	$config->set('PK', 'username');
-	Session::configure($config);
+	$config->set('time_out', 300);
+	$config->set('prefix', 'cache');
+	Cache::configure($config);
 }
 
 function init_Counter()
 {
 	$config = new CRObject();
-	$config->set('time_out', SESSION_TIME_OUT);
-	$config->set('bind_ip', BIND_SESSION_WITH_IP);
-	$config->set('PK', 'username');
-	Session::configure($config);
+	$config->set('db_table', 'ls_query_log');
+	Counter::configure($config);
 }
 
 function init_accessMap()

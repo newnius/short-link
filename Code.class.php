@@ -177,6 +177,12 @@ class Code
 			case Code::URL_LENGTH_INVALID:
 				return '链接长度不符合要求！';
 
+			case Code::RECORD_PAUSED:
+				return '该条记录已被暂停！';
+
+			case Code::RECORD_REMOVED:
+				return '该条记录已被删除！';
+
 			case Code::RECORD_DISABLED:
 				return '该条记录已被禁用！';
 

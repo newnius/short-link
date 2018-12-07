@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	<?php require_once('head.php'); ?>
-	<title>帮助中心 | 短链接生成器</title>
+	<title>帮助中心 | 短网址生成器</title>
 </head>
 <body>
 <div class="wrapper">
@@ -33,21 +33,37 @@
 			</div>
 			<div class="col-xs-12 col-sm-8 col-md-8 col-md-offset-1 ">
 				<div id="introduction" class="panel panel-default">
-					<div class="panel-heading">短链接生成器</div>
+					<div class="panel-heading">短网址生成器</div>
 					<div class="panel-body">
-						<p>云通讯录是基于web的在线联系人管理中心。只需一次导入或添加，即可随时随地，在任意设备上使用，避免了更换设备所带来的联系人信息丢失或转移通讯录的麻烦。并且，这一切都是免费的。</p>
+						<p>短网址生成器</p>
 					</div>
 				</div>
 				<div id="about" class="panel panel-default">
 					<div class="panel-heading">关于</div>
 					<div class="panel-body">
-						<p>云通讯录,电话本,联系人,同步,备份,网络备份,联系人去重,号码归属地查询,骚扰电话查询</p>
+						<ul>
+							<li>支持自定义短网址</li>
+							<li>同时生成对应的二维码</li>
+							<li>支持短网址有效期设置</li>
+							<li>支持对短网址的二次编辑</li>
+							<li>支持暂时停止短网址的跳转</li>
+							<li>支持形式丰富的访问统计分析</li>
+							<li>支持添加短网址备注，便于查看</li>
+							<li>支持导出短网址列表</li>
+							<li>去除了容易混淆的字符</li>
+							<li>采用 307 状态码，保留原始请求方法</li>
+							<li>启用 HTTPS 加密通信，降低个人隐私泄漏的风险</li>
+							<li>没有恶心人的域名白名单限制</li>
+							<li>完全免费，且无数量限制</li>
+						</ul>
 					</div>
 				</div>
 				<div id="privacy" class="panel panel-default">
 					<div class="panel-heading">TOS</div>
 					<div class="panel-body">
-						<p>用户使用限制</p>
+						<p>本在线短网址生成器免费对外开放。在使用本服务时，请知晓以下几点：</p>
+						<p>1. 网站有权停止或删除违反国际通行法律的短网址，如儿童色情等</p>
+						<p>2. 因不可抗力等因素导致的数据丢失等情况，网站不对此负责</p>
 					</div>
 				</div>
 				<div id="privacy" class="panel panel-default">
@@ -59,7 +75,7 @@
 				<div id="feedback" class="panel panel-default">
 					<div class="panel-heading">反馈</div>
 					<div class="panel-body">
-						<p>感谢使用短链接生成器，如果您在使用过程中遇到任何问题，请通过邮箱
+						<p>感谢使用在线短网址生成器，如果您在使用过程中遇到任何问题，请通过邮箱
 							<a href="mailto:support@newnius.com?subject=From LS">support@newnius.com</a>
 							联系。
 						</p>

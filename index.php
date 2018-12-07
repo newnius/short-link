@@ -56,7 +56,7 @@ require_once('global.inc.php');
 								<div class='input-group date date-picker'>
 									<label for="form-set-valid-from" class="sr-only">Valid From</label>
 									<input type='text' class="form-control" placeholder="留空表示不限制"
-									       id="form-set-valid-from"/>
+									       id="form-set-valid-from"autocomplete="off" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 									</div>
@@ -67,7 +67,7 @@ require_once('global.inc.php');
 								<div class='input-group date date-picker'>
 									<label for="form-set-valid-to" class="sr-only">Valid To</label>
 									<input type='text' class="form-control" placeholder="留空表示不限制"
-									       id="form-set-valid-to"/>
+									       id="form-set-valid-to" autocomplete="off" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 									</div>

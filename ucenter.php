@@ -55,7 +55,7 @@ foreach ($entries as $entry) {
 <html lang="zh-CN">
 <head>
 	<?php require_once('head.php'); ?>
-	<title>个人中心 | 云通讯录</title>
+	<title>管理中心 | 短网址生成器</title>
 	<link href="//cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/bootstrap-table.min.css" rel="stylesheet">
 	<script type="text/javascript">
 		var page_type = "<?=$page_type?>";

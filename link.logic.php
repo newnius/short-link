@@ -26,6 +26,10 @@ function link_add(CRObject $link)
 	if ($link->get('token') === null) {
 		while (true) {
 			$token = Random::randomString(TOKEN_MIN_LENGTH);
+			/* remove similar chars */
+			$token = str_replace('I', 'i', $token);
+			$token = str_replace('l', 'L', $token);
+			$token = str_replace('0', 'O', $token);
 			$link->set('token', $token);
 			if (LinkManager::get($link) === null) {
 				break;
@@ -204,7 +208,7 @@ function link_update(CRObject $link)
 	} else {
 		$origin['url'] = $link->get('url');
 		$origin['remark'] = $link->get('remark');
-		$origin['valid_from'] = $link->getInt('valid_form');
+		$origin['valid_from'] = $link->getInt('valid_from');
 		$origin['valid_to'] = $link->getInt('valid_to');
 		$res['errno'] = LinkManager::update(new CRObject($origin)) ? Code::SUCCESS : Code::UNKNOWN_ERROR;
 		Cache::expire($link->get('token', '')); // expire cache
@@ -280,6 +284,7 @@ function link_gets(CRObject $rule)
 		return $res;
 	}
 	$res['links'] = LinkManager::gets($rule);
+	$res['count'] = LinkManager::count($rule);
 	$res['errno'] = $res['links'] === null ? Code::FAIL : Code::SUCCESS;
 	return $res;
 }

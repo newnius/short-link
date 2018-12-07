@@ -1,23 +1,31 @@
-# short-link
-shorten long links
+# Link Shortener
+
+Shorten long urls
+
+## Requirements
+  - Redis
+  - Php (>=5.1)
+  - Mysql
+
+## Setup
+  - Install requirements
+  - Rename `config-sample.inc.php` to `config.inc.php`
+  - Customize `config.inc.php` & `static/config.js`
+  - Run `install.php` & __Remove__ `install.php`
 
 ## features
-#### shorten long url
-    api.php?action=set&url=http://blog.newnius.com
+  - Customized short url
+  - Generate related QR code
+  - Support expiration time
+  - Support available time
+  - Update after created
+  - Pause & Resume
+  - Various forms of visit log analytics
+  - Able to export your short urls
+  - Remove confusing chars (l, I etc.)
+  - Use 307 status code to preserve request method
+  - Block unhealthy short links
 
-#### shorten long url with selected short url
-    api.php?action=set&url=http://blog.newnius.com&token=newnius
-
-#### query origin long url
-    api.php?action=get&token=newnius
-
-#### analysis of visitors visiting short url
-
-#### rate control
-  - use [<code>RateController</code>](http://github.com/newnius/util-php/RateController.php) module to control rate
-
-## TODO
-  - Add `Claim`
-	- ReDesign redis keys
-	- Enable Admin support
-	- Analytics support
+## Future Work
+  - Use [ClickHouse](https://github.com/yandex/ClickHouse) to act as the query log system
+  - Use [RabbitMQ](https://github.com/rabbitmq/rabbitmq-server) to log query async and thus speed up the query
