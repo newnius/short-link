@@ -154,7 +154,7 @@ function load_links(scope) {
 			title: 'Owner',
 			align: 'center',
 			valign: 'middle',
-			sortable: true,
+			sortable: false,
 			visible: scope === 'all'
 		}, {
 			field: 'remark',
@@ -181,7 +181,7 @@ function load_links(scope) {
 			title: '当前状态',
 			align: 'center',
 			valign: 'middle',
-			sortable: true,
+			sortable: false,
 			formatter: statusFormatter,
 			visible: true
 		}, {
@@ -189,7 +189,7 @@ function load_links(scope) {
 			title: '创建时间',
 			align: 'center',
 			valign: 'middle',
-			sortable: true,
+			sortable: false,
 			formatter: timeFormatter,
 			visible: scope === 'all'
 		}, {
@@ -197,7 +197,7 @@ function load_links(scope) {
 			title: '有效期自',
 			align: 'center',
 			valign: 'middle',
-			sortable: true,
+			sortable: false,
 			formatter: timeFormatter,
 			visible: false
 		}, {
@@ -205,7 +205,7 @@ function load_links(scope) {
 			title: '有效期至',
 			align: 'center',
 			valign: 'middle',
-			sortable: true,
+			sortable: false,
 			formatter: timeFormatter,
 			visible: scope === 'self'
 		}, {
@@ -262,7 +262,7 @@ function linkOperateFormatter(value, row, index) {
 		div += '<button class="btn btn-default resume"><i class="glyphicon glyphicon-play"></i>&nbsp;</button>';
 	if (page_type === 'links' && row.status === '0')
 		div += '<button class="btn btn-default pause"><i class="glyphicon glyphicon-pause"></i>&nbsp;</button>';
-	if (page_type === 'links_all' && row.status === '0')
+	if (page_type === 'links_all' && row.status !== '2' && row.status !== '3')
 		div += '<button class="btn btn-default block"><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;</button>';
 	if (page_type === 'links_all' && row.status === '2')
 		div += '<button class="btn btn-default unblock"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;</button>';

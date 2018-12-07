@@ -24,11 +24,15 @@ $link->set('token', cr_get_GET('token'));
 $res = link_get($link);
 
 if (ENABLE_LOG_QUERY) {
+	$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+	$ua = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null;
+	$lang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : null;
+
 	$log = new CRObject();
 	$log->set('token', cr_get_GET('token', ''));
-	$log->set('referer', $_SERVER['HTTP_REFERER']);
-	$log->set('ua', $_SERVER['HTTP_USER_AGENT']);
-	$log->set('lang', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	$log->set('referer', $referer);
+	$log->set('ua', $ua);
+	$log->set('lang', $lang);
 	$log->set('ip', cr_get_client_ip());
 	$log->set('time', time());
 	Counter::log($log);

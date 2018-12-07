@@ -13,24 +13,22 @@ define('DB_PORT', 3306);
 define('DB_NAME', 'shortlink');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
-define('DB_SHOW_ERROR', true);
+define('DB_SHOW_ERROR', false);
 
 /* Redis */
 /* Make sure that your Redis only listens to Intranet */
 define('REDIS_SCHEME', 'tcp');
 define('REDIS_HOST', 'localhost');
 define('REDIS_PORT', 6379);
-define('REDIS_SHOW_ERROR', true);
+define('REDIS_SHOW_ERROR', false);
 
 /* Cache */
 define('ENABLE_CACHE', true);
 define('CACHE_TIMEOUT', 300);
 define('CACHE_PREFIX', 'cache');
 
-/* Query Logger (Click House) */
+/* Query Logger */
 define('ENABLE_LOG_QUERY', true);
-define('CK_HOST', 'localhost');
-define('CK_PORT', 1234);
 
 /* Site */
 define('BASE_URL', 'http://127.0.0.1'); //make absolute url for SEO and avoid hijack, no '/' at the end

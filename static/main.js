@@ -83,6 +83,8 @@ function show_result(url, shortUrl) {
 	$("#modal-result-title").text("短网址已生成");
 	$("#modal-result-url").html("<a target='_blank' href='" + url + "'>" + url + "</a>");
 	$("#modal-result-token").html("<a target='_blank' href='" + shortUrl + "'>" + shortUrl + "</a>");
-	$("#modal-result-qrcode").attr("src", "http://qr.liantu.com/api.php?w=160&m=5&text=" + encodeURIComponent(shortUrl));
+	$("#modal-result-qrcode").attr("src", "");
+	//$("#modal-result-qrcode").attr("src", "http://qr.liantu.com/api.php?w=160&m=5&text=" + encodeURIComponent(shortUrl));
+	$("#modal-result-qrcode").attr("src", "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(shortUrl));
 	$("#modal-result").modal("show");
 }
