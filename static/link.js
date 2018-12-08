@@ -3,7 +3,7 @@ function register_events_link() {
 		$('#modal-link-title').html('添加短链接');
 		$('#form-link-url').val('');
 		$('#form-link-token').val('');
-		$('#form-link-token').removeAttr('disabled');
+		$('#form-link-token').removeAttr('readonly');
 		$('#form-link-remark').val('');
 		$('#form-link-valid-from').val('');
 		$('#form-link-valid-to').val('');
@@ -377,7 +377,7 @@ function show_link_modal(link) {
 	$('#modal-link-title').html('编辑短链接');
 	$('#form-link-url').val(link.url);
 	$('#form-link-token').val(link.token);
-	$("#form-link-token").attr("disabled", "disabled");
+	$("#form-link-token").attr("readonly", "readonly");
 	$('#form-link-remark').val(link.remark);
 	$('#form-link-valid-from').val('');
 	$('#form-link-valid-to').val('');

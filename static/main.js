@@ -45,7 +45,7 @@ $(function () {
 		});
 		ajax.fail(function (jqXHR, textStatus) {
 			$("#form-set-submit").removeAttr("disabled");
-			$("#modal-msg-content").html(res["msg"]);
+			$("#modal-msg-content").html("Request failed :" + textStatus);
 			$("#modal-msg").modal('show');
 		});
 	});
@@ -72,7 +72,7 @@ $(function () {
 		});
 		ajax.fail(function (jqXHR, textStatus) {
 			$("#form-get-submit").removeAttr("disabled");
-			$("#modal-msg-content").html(res["msg"]);
+			$("#modal-msg-content").html("Request failed :" + textStatus);
 			$("#modal-msg").modal('show');
 		});
 	});
