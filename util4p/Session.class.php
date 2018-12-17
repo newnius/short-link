@@ -12,6 +12,7 @@ class Session
 	{
 		self::$time_out = $config->get('time_out', self::$time_out);
 		self::$bind_ip = $config->getBool('bind_ip', self::$bind_ip);
+		return true;
 	}
 
 	/**/

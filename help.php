@@ -1,3 +1,7 @@
+<?php
+require_once('config.inc.php');
+require_once('secure.inc.php');
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -76,7 +80,7 @@
 					<div class="panel-heading">反馈</div>
 					<div class="panel-body">
 						<p>感谢使用在线短网址生成器，如果您在使用过程中遇到任何问题，请通过邮箱
-							<a href="mailto:support@newnius.com?subject=From LS">support@newnius.com</a>
+							<a href="mailto:<?= FEEDBACK_EMAIL ?>?subject=From LS"><?= FEEDBACK_EMAIL ?></a>
 							联系。
 						</p>
 					</div>

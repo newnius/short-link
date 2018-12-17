@@ -17,7 +17,7 @@ class Counter
 	public static function log(CRObject $log)
 	{
 		$token = $log->get('token', '');
-		$ip = $log->get('ip', cr_get_client_ip());
+		$ip = $log->get('ip', cr_get_client_ip(false));
 		$referer = $log->getInt('referer');
 		$time = $log->getInt('time', time());
 		$ua = $log->getInt('ua');
@@ -30,7 +30,7 @@ class Counter
 		$builder->insert(self::$db_table, $key_values);
 		$sql = $builder->build();
 		$params = array($token, ip2long($ip), $referer, $time, $ua, $lang);
-		return (new MysqlPDO())->execute($sql, $params) === 1;
+		return (new MysqlPDO())->execute($sql, $params);
 	}
 
 	public static function query(CRObject $filter)

@@ -3,6 +3,15 @@
 	margin: 0 auto;
 }
 
+#visitors table {
+	max-width: 320px;
+	margin: 0 auto;
+}
+
+#visitors table th {
+	width: 50%;
+}
+
 /* make sticky footer  */
 body, html {
 	height: 100%;

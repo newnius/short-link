@@ -18,7 +18,7 @@ require_once('init.inc.php');
 
 //check state
 $state = cr_get_GET('state');
-if ($state === null || $state !== Session::get('oauth_state')) {
+if ($state === null || $state !== Session::get('oauth:state')) {
 	echo 'Auth failed, state check failed!';
 	exit;
 }

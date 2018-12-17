@@ -33,7 +33,7 @@ class RateLimiter
 	public static function configure(CRObject $config)
 	{
 		self::$keyPrefix = $config->get('key_prefix', self::$keyPrefix);
-		self::$id = $config->get('id', cr_get_client_ip());
+		self::$id = $config->get('id', cr_get_client_ip(false));
 		self::$rules = $config->get('rules', self::$rules);
 	}
 

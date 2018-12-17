@@ -9,14 +9,11 @@ require_once('link.logic.php');
 require_once('config.inc.php');
 require_once('init.inc.php');
 
-if (isset($_COOKIE['last_visit_token']) && $_COOKIE['last_visit_token'] === cr_get_GET('token')) {
-	if (time() - (int)$_COOKIE['last_visit_time'] < 2) { // to fast, seems like an endless loop
-		$code = Code::TOO_FAST;
-		require_once('404.php');
-		exit;
-	}
+if (time() - (int)$_COOKIE['last_visit_time'] < 2) { // too fast, seems like an endless loop
+	$code = Code::TOO_FAST;
+	require_once('404.php');
+	exit;
 }
-setcookie('last_visit_token', cr_get_GET('token'));
 setcookie('last_visit_time', time());
 
 $link = new CRObject();
@@ -33,7 +30,7 @@ if (ENABLE_LOG_QUERY) {
 	$log->set('referer', $referer);
 	$log->set('ua', $ua);
 	$log->set('lang', $lang);
-	$log->set('ip', cr_get_client_ip());
+	$log->set('ip', cr_get_client_ip(false));
 	$log->set('time', time());
 	Counter::log($log);
 }

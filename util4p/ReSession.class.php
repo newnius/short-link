@@ -33,6 +33,7 @@ class Session
 		} else {
 			self::$sid = $_COOKIE[self::$guid_key];
 		}
+		return true;
 	}
 
 	/* Ask browser to remember session id even if browser restarts */
@@ -86,7 +87,7 @@ class Session
 		}
 		$redis_key = 'session:' . self::$sid;
 		$redis->hset($redis_key, $key, $value);
-		$redis->hset($redis_key, '_ip', cr_get_client_ip());
+		$redis->hset($redis_key, '_ip', cr_get_client_ip(false));
 		self::$cache[$key] = $value;//update cache
 		self::get('_ip');//renew expiration
 		$redis->disconnect();
@@ -106,7 +107,7 @@ class Session
 		$redis_key = 'session:' . self::$sid;
 		$list = $redis->hgetall($redis_key);
 		if (self::$bind_ip) {
-			if (!(isset($list['_ip']) && $list['_ip'] === cr_get_client_ip())) {
+			if (!(isset($list['_ip']) && $list['_ip'] === cr_get_client_ip(false))) {
 				return $default;
 			}
 		}

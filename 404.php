@@ -1,7 +1,6 @@
 <?php
-
 require_once('Code.class.php');
-require_once('config.inc.php');
+require_once('secure.inc.php');
 
 $error = '404 Not Found';
 if (isset($code)) {
@@ -20,6 +19,9 @@ if (isset($code)) {
 			break;
 		case Code::RECORD_PAUSED:
 			header('HTTP/1.1 403 Forbidden');
+			break;
+		case Code::TOO_FAST:
+			header('HTTP/1.1 429 Too Many Requests');
 			break;
 		default:
 			header('HTTP/1.1 520 Unknown Error');

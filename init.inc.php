@@ -98,13 +98,13 @@ function init_accessMap()
 		'link.block' => array('root', 'admin'),
 		'link.unblock' => array('root', 'admin'),
 
-
 		/* ucenter entry show control */
 		'ucenter.home' => array('root', 'admin', 'developer', 'normal'),
 		'ucenter.links' => array('root', 'admin', 'developer', 'normal'),
 		'ucenter.links_all' => array('root', 'admin'),
 		'ucenter.logs' => array('root', 'admin', 'developer', 'normal'),
-		'ucenter.logs_all' => array('root', 'admin')
+		'ucenter.logs_all' => array('root', 'admin'),
+		'ucenter.visitors' => array('root', 'admin')
 	);
 	AccessController::setMap($map);
 }

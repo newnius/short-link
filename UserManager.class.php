@@ -24,8 +24,7 @@ class UserManager
 		$builder->insert('ls_user', $key_values);
 		$sql = $builder->build();
 		$params = array($open_id, $email, $role, time(), $level);
-		$count = (new MysqlPDO())->execute($sql, $params);
-		return $count === 1;
+		return (new MysqlPDO())->execute($sql, $params);
 	}
 
 	/**/

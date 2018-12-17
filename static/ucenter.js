@@ -22,7 +22,7 @@ $(function () {
 function load_logs(scope) {
 	var $table = $("#table-log");
 	$table.bootstrapTable({
-		url: '/service?action=log_gets&who=' + scope,
+		url: window.config.BASE_URL + '/service?action=log_gets&who=' + scope,
 		responseHandler: logResponseHandler,
 		sidePagination: 'server',
 		cache: true,

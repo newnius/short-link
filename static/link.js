@@ -16,6 +16,16 @@ function register_events_link() {
 	$("#form-link-submit").click(function (e) {
 		var url = $('#form-link-url').val();
 		var token = $('#form-link-token').val();
+		if (token.length < window.config.TOKEN_MIN_LENGTH || token.length > window.config.TOKEN_MAX_LENGTH) {
+			$("#form-link-msg").html("自定义网址长度在 " + window.config.TOKEN_MIN_LENGTH + " - " + window.config.TOKEN_MAX_LENGTH);
+			return true;
+		}
+		//var pattern = /^([a-zA-Z0-9]){5,15}$/;
+		var pattern = /^([a-zA-Z0-9])+$/;
+		if (!pattern.test(token)) {
+			$("#form-link-msg").html("无效的自定义网址，仅支持字母、数字");
+			return true;
+		}
 		var remark = $('#form-link-remark').val();
 		var valid_from = $('#form-link-valid-from').val();
 		if (valid_from.length !== 0) {
@@ -224,6 +234,9 @@ var tokenFormatter = function (token) {
 };
 
 var urlFormatter = function (url) {
+	if (url.indexOf('//') === -1) {
+		url = 'http://' + url;
+	}
 	return '<a href="' + url + '" target="_blank">原始链接</a>';
 };
 
@@ -276,7 +289,7 @@ window.linkOperateEvents = {
 		$('#modal-analytics-interval').prepend('<h4 class="text-info pull-left">Fetching data, please wait...</h4>');
 		var interval = 1;
 		var ajax = $.ajax({
-			url: "/service?action=analyze",
+			url: window.config.BASE_URL + "/service?action=analyze",
 			type: 'GET',
 			data: {
 				token: row.token,
@@ -304,7 +317,7 @@ window.linkOperateEvents = {
 			return;
 		}
 		var ajax = $.ajax({
-			url: "/service?action=block",
+			url: window.config.BASE_URL + "/service?action=block",
 			type: 'POST',
 			data: {token: row.token}
 		});
@@ -322,7 +335,7 @@ window.linkOperateEvents = {
 			return;
 		}
 		var ajax = $.ajax({
-			url: "/service?action=unblock",
+			url: window.config.BASE_URL + "/service?action=unblock",
 			type: 'POST',
 			data: {token: row.token}
 		});
@@ -340,7 +353,7 @@ window.linkOperateEvents = {
 			return;
 		}
 		var ajax = $.ajax({
-			url: "/service?action=pause",
+			url: window.config.BASE_URL + "/service?action=pause",
 			type: 'POST',
 			data: {token: row.token}
 		});
@@ -358,7 +371,7 @@ window.linkOperateEvents = {
 			return;
 		}
 		var ajax = $.ajax({
-			url: "/service?action=resume",
+			url: window.config.BASE_URL + "/service?action=resume",
 			type: 'POST',
 			data: {token: row.token}
 		});

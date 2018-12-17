@@ -4,6 +4,7 @@ require_once('util4p/util.php');
 require_once('util4p/CRObject.class.php');
 
 require_once('Code.class.php');
+require_once('Securer.class.php');
 
 require_once('user.logic.php');
 require_once('link.logic.php');
@@ -30,14 +31,11 @@ function csrf_check($action)
 		'block',
 		'unblock',
 		'report',
-		'signout'
+		'signout',
+		'oauth_get_url'
 	);
-	$csrf_token = null;
-	if (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
-		$csrf_token = $_SERVER['HTTP_X_CSRF_TOKEN'];
-	}
 	if (in_array($action, $post_methods)) {
-		return $csrf_token !== null && isset($_COOKIE['csrf_token']) && $csrf_token === $_COOKIE['csrf_token'];
+		return Securer::validate_csrf_token();
 	}
 	return true;
 }
@@ -147,6 +145,10 @@ switch ($action) {
 		$rule->set('limit', cr_get_GET('limit'));
 		$rule->set('order', 'latest');
 		$res = log_gets($rule);
+		break;
+
+	case 'oauth_get_url':
+		$res = oauth_get_url();
 		break;
 
 	default:

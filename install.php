@@ -1,10 +1,17 @@
 <?php
 
 require_once('util4p/util.php');
+require_once('util4p/CRObject.class.php');
 require_once('util4p/MysqlPDO.class.php');
 
 require_once('config.inc.php');
 require_once('init.inc.php');
+
+
+/* show error for debug purpose */
+$config = new CRObject();
+$config->set('show_error', true);
+MysqlPDO::configure($config);
 
 
 create_table_user();
@@ -16,7 +23,8 @@ function execute_sqls($sqls)
 {
 	foreach ($sqls as $description => $sql) {
 		echo "Executing $description: ";
-		var_dump((new MysqlPDO)->execute($sql, array()));
+		$res = (new MysqlPDO)->execute($sql, array());
+		echo $res ? '<em>Success</em>' : '<em>Failed</em>';
 		echo "<hr/>";
 	}
 }

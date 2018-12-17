@@ -16,6 +16,11 @@ function user_get(CRObject $info)
 {
 	$res['user'] = UserManager::getByOpenID($info->get('open_id'));
 	if ($res['user'] === null) {
+		/* if user(UID=1) not exist, set this user as admin
+		* WARN: do not delete user(UID=1) */
+		if (UserManager::getByUID(1) === null) {
+			$info->set('role', 'admin');
+		}
 		if (!UserManager::add($info)) {
 			$res['errno'] = Code::FAIL;
 			return $res;
@@ -51,5 +56,15 @@ function log_gets(CRObject $rule)
 	$res['errno'] = Code::SUCCESS;
 	$res['count'] = CRLogger::getCount($rule);
 	$res['logs'] = CRLogger::search($rule);
+	return $res;
+}
+
+function oauth_get_url()
+{
+	$state = Random::randomString(16);
+	Session::put('oauth:state', $state);
+	$url = OAUTH_SITE . '/login?response_type=code&client_id=' . OAUTH_CLIENT_ID . '&redirect_uri=' . BASE_URL . '/auth&state=' . $state . '&scope=role';
+	$res['errno'] = Code::SUCCESS;
+	$res['url'] = $url;
 	return $res;
 }

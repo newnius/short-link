@@ -33,6 +33,7 @@ define('ENABLE_LOG_QUERY', true);
 /* Site */
 define('BASE_URL', 'http://127.0.0.1'); //make absolute url for SEO and avoid hijack, no '/' at the end
 define('WEB_ROOT', __DIR__);
+define('FEEDBACK_EMAIL', 'support@newnius.com');
 
 /* Auth */
 define('AUTH_CODE_TIMEOUT', 300); // 5 min
@@ -40,7 +41,7 @@ define('AUTH_TOKEN_TIMEOUT', 604800); // 7 day
 
 /* Session */
 define('ENABLE_MULTIPLE_LOGIN', true);
-define('BIND_SESSION_WITH_IP', true);
+define('BIND_SESSION_WITH_IP', false);
 define('SESSION_TIME_OUT', 1800);// 30 minutes 30*60=1800
 define('ENABLE_COOKIE', true);
 
@@ -57,8 +58,8 @@ define('EMAIL_FROM', 'service@example.com');
 
 /* OAuth */
 define('OAUTH_SITE', 'https://quickauth.newnius.com');
-define('OAUTH_CLIENT_ID', '');
-define('OAUTH_CLIENT_SECRET', '');
+define('OAUTH_CLIENT_ID', 'XgaII6NxeE08LtKB');
+define('OAUTH_CLIENT_SECRET', 'L9hdi4dQToM0GsDLtcYYQ3k4ZDEjuGVOtPS3nOVKlo6cxLcVjH9TqvmTBiHAgLp2');
 
 
 header("content-type:text/html; charset=utf-8");

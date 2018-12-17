@@ -46,25 +46,29 @@ class MysqlPDO
 		}
 	}
 
-	/**/
+	/*
+	 * @return bool
+	 * */
 	public function execute($sql, $a_params, $need_inserted_id = false)
 	{
 		if ($this->dbh === null) {
-			return null;
+			return false;
 		}
 		try {
 			$stmt = $this->dbh->prepare($sql);
-			$stmt->execute($a_params);
-			$result = $stmt->rowCount();//affected rows
+			$result = $stmt->execute($a_params);
+			if (self::$show_error && !$result) {
+				var_dump($stmt->errorInfo()[2]);
+			}
 			if ($need_inserted_id) {
-				$result = $result > 0 ? $this->dbh->lastInsertId() : null;
+				$result = $result ? $this->dbh->lastInsertId() : false;
 			}
 			$this->dbh = null;
 			return $result;
 		} catch (Exception $e) {
 			if (self::$show_error)
 				var_dump($e->getMessage());
-			return null;
+			return false;
 		}
 	}
 

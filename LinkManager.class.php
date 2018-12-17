@@ -26,8 +26,7 @@ class LinkManager
 		$builder->insert('ls_link', $key_values);
 		$sql = $builder->build();
 		$params = array($token, $url, $remark, $valid_from, $valid_to, time(), $owner);
-		$count = (new MysqlPDO())->execute($sql, $params);
-		return $count === 1;
+		return (new MysqlPDO())->execute($sql, $params);
 	}
 
 	/* */
@@ -76,7 +75,7 @@ class LinkManager
 		$builder->where($where, $opts);
 		$sql = $builder->build();
 		$res = (new MysqlPDO())->executeQuery($sql, $params);
-		return intval($res[0]['cnt']);
+		return $res === null ? 0 : intval($res[0]['cnt']);
 	}
 
 	/* get link by token */
@@ -113,8 +112,7 @@ class LinkManager
 		$builder->where($where);
 		$sql = $builder->build();
 		$params = array($url, $remark, $valid_from, $valid_to, $status, $token);
-		$count = (new MysqlPDO())->execute($sql, $params);
-		return $count !== null;
+		return (new MysqlPDO())->execute($sql, $params);
 	}
 
 }

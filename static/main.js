@@ -80,6 +80,9 @@ $(function () {
 });
 
 function show_result(url, shortUrl) {
+	if (url.indexOf('//') === -1) {
+		url = 'http://' + url;
+	}
 	$("#modal-result-title").text("短网址已生成");
 	$("#modal-result-url").html("<a target='_blank' href='" + url + "'>" + url + "</a>");
 	$("#modal-result-token").html("<a target='_blank' href='" + shortUrl + "'>" + shortUrl + "</a>");

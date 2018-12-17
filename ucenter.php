@@ -8,6 +8,7 @@ require_once('util4p/AccessController.class.php');
 require_once('global.inc.php');
 
 require_once('config.inc.php');
+require_once('secure.inc.php');
 require_once('init.inc.php');
 
 
@@ -32,6 +33,9 @@ if (isset($_GET['logs'])) {
 } elseif (isset($_GET['links_all'])) {
 	$page_type = 'links_all';
 
+} elseif (isset($_GET['visitors'])) {
+	$page_type = 'visitors';
+
 } elseif (isset($_GET['home'])) {
 	$page_type = 'home';
 
@@ -42,7 +46,8 @@ $entries = array(
 	array('links', '我的短链'),
 	array('links_all', '链接管理'),
 	array('logs', '近期登陆'),
-	array('logs_all', '站点日志')
+	array('logs_all', '站点日志'),
+	array('visitors', '访客统计')
 );
 $visible_entries = array();
 foreach ($entries as $entry) {
@@ -141,11 +146,38 @@ foreach ($entries as $entry) {
 									<div id="toolbar"></div>
 									<table id="table-log" data-toolbar="#toolbar" class="table table-striped">
 									</table>
-									<span class="text-info">* At most 1000 recent activities</span>
 								</div>
 							</div>
 						</div>
 					</div>
+
+				<?php } elseif ($page_type === 'visitors') { ?>
+					<div id="visitors">
+						<div class="panel panel-default">
+							<div class="panel-heading">访问量统计</div>
+							<div class="panel-body">
+								<table class="table table-striped table-bordered">
+									<tr>
+										<th>全站 PV</th>
+										<td><span class="cr_count_site_pv">Loading</span></td>
+									</tr>
+									<tr>
+										<th>全站 UV</th>
+										<td><span class="cr_count_site_uv">Loading</span></td>
+									</tr>
+									<tr>
+										<th>今日 PV</th>
+										<td><span class="cr_count_site_pv_24h">Loading</span></td>
+									</tr>
+									<tr>
+										<th>今日 UV</th>
+										<td><span class="cr_count_site_uv_24h">Loading</span></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+
 				<?php } ?>
 
 			</div>
