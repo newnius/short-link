@@ -16,15 +16,17 @@ function register_events_link() {
 	$("#form-link-submit").click(function (e) {
 		var url = $('#form-link-url').val();
 		var token = $('#form-link-token').val();
-		if (token.length < window.config.TOKEN_MIN_LENGTH || token.length > window.config.TOKEN_MAX_LENGTH) {
-			$("#form-link-msg").html("自定义网址长度在 " + window.config.TOKEN_MIN_LENGTH + " - " + window.config.TOKEN_MAX_LENGTH);
-			return true;
-		}
-		//var pattern = /^([a-zA-Z0-9]){5,15}$/;
-		var pattern = /^([a-zA-Z0-9])+$/;
-		if (!pattern.test(token)) {
-			$("#form-link-msg").html("无效的自定义网址，仅支持字母、数字");
-			return true;
+		if (token.length > 0) {
+			if (token.length < window.config.TOKEN_MIN_LENGTH || token.length > window.config.TOKEN_MAX_LENGTH) {
+				$("#form-link-msg").html("自定义网址长度在 " + window.config.TOKEN_MIN_LENGTH + " - " + window.config.TOKEN_MAX_LENGTH);
+				return true;
+			}
+			//var pattern = /^([a-zA-Z0-9]){5,15}$/;
+			var pattern = /^([a-zA-Z0-9])+$/;
+			if (!pattern.test(token)) {
+				$("#form-link-msg").html("无效的自定义网址，仅支持字母、数字");
+				return true;
+			}
 		}
 		var remark = $('#form-link-remark').val();
 		var valid_from = $('#form-link-valid-from').val();
@@ -172,7 +174,8 @@ function load_links(scope) {
 			align: 'center',
 			valign: 'middle',
 			sortable: false,
-			visible: scope === 'self'
+			visible: scope === 'self',
+			escape: true
 		}, {
 			field: 'token',
 			title: '短链接',
@@ -229,11 +232,13 @@ function load_links(scope) {
 }
 
 var tokenFormatter = function (token) {
+	token = encodeURI(token);
 	var url = window.config.BASE_URL + "/" + token;
 	return '<a href="' + url + '" target="_blank">' + token + '</a>';
 };
 
 var urlFormatter = function (url) {
+	url = encodeURI(url);
 	if (url.indexOf('//') === -1) {
 		url = 'http://' + url;
 	}
