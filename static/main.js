@@ -7,6 +7,20 @@ $(function () {
 	$("#form-set-submit").click(function () {
 		var url = $("#form-set-url").val();
 		var token = $("#form-set-token").val();
+		if (token.length > 0) {
+			if (token.length < window.config.TOKEN_MIN_LENGTH || token.length > window.config.TOKEN_MAX_LENGTH) {
+				$("#modal-msg-content").html("自定义网址长度在 \" + window.config.TOKEN_MIN_LENGTH + \" - \" + window.config.TOKEN_MAX_LENGTH");
+				$("#modal-msg").modal('show');
+				return true;
+			}
+			//var pattern = /^([a-zA-Z0-9]){5,15}$/;
+			var pattern = /^([a-zA-Z0-9])+$/;
+			if (!pattern.test(token)) {
+				$("#modal-msg-content").html("无效的自定义网址，仅支持字母、数字");
+				$("#modal-msg").modal('show');
+				return true;
+			}
+		}
 		var remark = $('#form-set-remark').val();
 		var valid_from = $('#form-set-valid-from').val();
 		if (valid_from.length !== 0) {
