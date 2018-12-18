@@ -38,7 +38,7 @@ class UserManager
 		$sql = $builder->build();
 		$params = array($uid);
 		$users = (new MysqlPDO())->executeQuery($sql, $params);
-		return count($users) === 1 ? $users[0] : null;
+		return $users !== null && count($users) === 1 ? $users[0] : null;
 	}
 
 	/**/
@@ -52,6 +52,6 @@ class UserManager
 		$sql = $builder->build();
 		$params = array($open_id);
 		$users = (new MysqlPDO())->executeQuery($sql, $params);
-		return count($users) === 1 ? $users[0] : null;
+		return $users !== null && count($users) === 1 ? $users[0] : null;
 	}
 }

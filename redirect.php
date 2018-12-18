@@ -9,7 +9,7 @@ require_once('link.logic.php');
 require_once('config.inc.php');
 require_once('init.inc.php');
 
-if (time() - (int)$_COOKIE['last_visit_time'] < 2) { // too fast, seems like an endless loop
+if (time() - (int)cr_get_COOKIE(['last_visit_time'], 0) < 2) { // too fast, seems like an endless loop
 	$code = Code::TOO_FAST;
 	require_once('404.php');
 	exit;

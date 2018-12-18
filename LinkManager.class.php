@@ -90,7 +90,7 @@ class LinkManager
 		$builder->where($where);
 		$sql = $builder->build();
 		$links = (new MysqlPDO())->executeQuery($sql, $params);
-		return count($links) === 1 ? $links[0] : null;
+		return $links !== null && count($links) === 1 ? $links[0] : null;
 	}
 
 	/* */

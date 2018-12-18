@@ -13,6 +13,8 @@ Shorten long urls
   - Customize `config.inc.php` & `static/config.js`
   - Run `install.php` & __Remove__ `install.php`
 
+Want to deploy this service quickly? Try out this [one click setup](https://github.com/QuickDeploy/url-shortener) in [QuickDeploy](https://github.com/QuickDeploy/).
+
 ## features
   - Customized short url
   - Generate related QR code

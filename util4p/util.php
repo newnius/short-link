@@ -47,3 +47,12 @@ function cr_get_POST($key, $default = null)
 	}
 	return $default;
 }
+
+/* get from $_COOKIE */
+function cr_get_COOKIE($key, $default = null)
+{
+	if (isset($_COOKIE[$key]) && strlen($_COOKIE[$key]) > 0) {
+		return $_COOKIE[$key];
+	}
+	return $default;
+}

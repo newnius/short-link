@@ -38,7 +38,7 @@
 				<h4 id="modal-msg-title" class="modal-title">通知</h4>
 			</div>
 			<div class="modal-body">
-				<h4 id="modal-msg-content" class="text-msg text-center">Hello World!</h4>
+				<h4 id="modal-msg-content" class="text-msg text-center">Something is wrong!</h4>
 			</div>
 		</div>
 	</div>
