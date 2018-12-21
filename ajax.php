@@ -18,7 +18,9 @@ function csrf_check($action)
 	/* check referer, just in case I forget to add the method to $post_methods */
 	$referer = cr_get_SERVER('HTTP_REFERER', '');
 	$url = parse_url($referer);
-	if (isset($url['host']) && $url['host'] !== cr_get_SERVER('HTTP_HOST')) {
+	$host = isset($url['host']) ? $url['host'] : '';
+	$host .= isset($url['port']) && $url['port'] !== 80 ? ':' . $url['port'] : '';
+	if ($host !== cr_get_SERVER('HTTP_HOST')) {
 		return false;
 	}
 	$post_methods = array(
