@@ -59,18 +59,18 @@ foreach ($entries as $entry) {
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<?php require_once('head.php'); ?>
+	<?php require('head.php'); ?>
 	<title>管理中心 | 短网址生成器</title>
-	<link href="//cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/bootstrap-table.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/bootstrap-table.min.css" rel="stylesheet">
 	<script type="text/javascript">
 		var page_type = "<?=$page_type?>";
 	</script>
 </head>
 
 <body>
-<?php require_once('modals.php'); ?>
 <div class="wrapper">
-	<?php require_once('header.php'); ?>
+	<?php require('header.php'); ?>
+	<?php require('modals.php'); ?>
 	<div class="container">
 		<div class="row">
 
@@ -187,7 +187,7 @@ foreach ($entries as $entry) {
 	<!--This div exists to avoid footer from covering main body-->
 	<div class="push"></div>
 </div>
-<?php require_once('footer.php'); ?>
+<?php require('footer.php'); ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/bootstrap-table.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>

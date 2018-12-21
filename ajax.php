@@ -16,9 +16,9 @@ require_once('init.inc.php');
 function csrf_check($action)
 {
 	/* check referer, just in case I forget to add the method to $post_methods */
-	$referer = $_SERVER['HTTP_REFERER'];
+	$referer = cr_get_SERVER('HTTP_REFERER', '');
 	$url = parse_url($referer);
-	if (isset($url['host']) && $url['host'] != $_SERVER['HTTP_HOST']) {
+	if (isset($url['host']) && $url['host'] !== cr_get_SERVER(['HTTP_HOST'])) {
 		return false;
 	}
 	$post_methods = array(

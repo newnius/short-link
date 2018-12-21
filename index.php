@@ -5,14 +5,14 @@ require_once('secure.inc.php');
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<?php require_once('head.php'); ?>
+	<?php require('head.php'); ?>
 	<title>短网址生成器 | LinkShortener</title>
 </head>
 
 <body>
 <div class="wrapper">
-	<?php require_once('header.php'); ?>
-	<?php require_once('modals.php'); ?>
+	<?php require('header.php'); ?>
+	<?php require('modals.php'); ?>
 	<div class="container">
 
 		<div id="main" class="form ui-widget load-overlay container">
@@ -98,7 +98,7 @@ require_once('secure.inc.php');
 	<!--This div exists to avoid footer from covering main body-->
 	<div class="push"></div>
 </div>
-<?php require_once('footer.php'); ?>
+<?php require('footer.php'); ?>
 <script src="static/main.js"></script>
 </body>
 </html>

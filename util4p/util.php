@@ -56,3 +56,12 @@ function cr_get_COOKIE($key, $default = null)
 	}
 	return $default;
 }
+
+/* get from $_SERVER */
+function cr_get_SERVER($key, $default = null)
+{
+	if (isset($_SERVER[$key]) && strlen($_SERVER[$key]) > 0) {
+		return $_SERVER[$key];
+	}
+	return $default;
+}

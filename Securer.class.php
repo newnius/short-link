@@ -28,9 +28,8 @@ class Securer
 			$csrf_token = $_SERVER['HTTP_X_CSRF_TOKEN'];
 		}
 		$success = $csrf_token !== null && isset($_COOKIE['csrf_token']) && $csrf_token === $_COOKIE['csrf_token'];
-		if ($success) {
-			setcookie('csrf_token', Random::randomString(32));
-		}
+		/* whatever, refresh csrf_token to expire current token */
+		setcookie('csrf_token', Random::randomString(32));
 		return $success;
 	}
 
