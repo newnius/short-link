@@ -9,7 +9,7 @@ $(function () {
 		var token = $("#form-set-token").val();
 		if (token.length > 0) {
 			if (token.length < window.config.TOKEN_MIN_LENGTH || token.length > window.config.TOKEN_MAX_LENGTH) {
-				$("#modal-msg-content").html("自定义网址长度在 \" + window.config.TOKEN_MIN_LENGTH + \" - \" + window.config.TOKEN_MAX_LENGTH");
+				$("#modal-msg-content").html("自定义网址长度在 " + window.config.TOKEN_MIN_LENGTH + " - " + window.config.TOKEN_MAX_LENGTH);
 				$("#modal-msg").modal('show');
 				return true;
 			}
