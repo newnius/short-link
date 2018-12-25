@@ -5,12 +5,13 @@ require_once('secure.inc.php');
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<?php require_once('head.php'); ?>
+	<?php require('head.php'); ?>
 	<title>帮助中心 | 短网址生成器</title>
 </head>
 <body>
 <div class="wrapper">
-	<?php require_once('header.php'); ?>
+	<?php require('header.php'); ?>
+	<?php require('modals.php'); ?>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-4 col-md-3 hidden-xs">
@@ -92,6 +93,6 @@ require_once('secure.inc.php');
 	<!--This div exists to avoid footer from covering main body-->
 	<div class="push"></div>
 </div>
-<?php require_once('footer.php'); ?>
+<?php require('footer.php'); ?>
 </body>
 </html>

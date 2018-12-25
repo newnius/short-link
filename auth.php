@@ -78,7 +78,7 @@ if ($response['errno'] === 0) {
 		$log->set('content', json_encode($content));
 		CRLogger::log($log);
 
-		header('location: /ucenter');
+		header('location:' . BASE_URL . '/ucenter');
 		exit;
 	} else {
 		echo Code::getErrorMsg($res['errno']);

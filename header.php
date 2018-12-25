@@ -27,7 +27,7 @@ require_once('init.inc.php');
 					<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
 					   aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="/help">帮助</a></li>
+						<li><a href="<?= BASE_URL ?>/help">帮助</a></li>
 						<li role="separator" class="divider"></li>
 						<?php if (Session::get('uid')) { ?>
 							<li><a href="javascript:void(0)" id="btn-signout">退出</a></li>
