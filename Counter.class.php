@@ -18,10 +18,10 @@ class Counter
 	{
 		$token = $log->get('token', '');
 		$ip = $log->get('ip', cr_get_client_ip(false));
-		$referer = $log->getInt('referer');
+		$referer = $log->get('referer');
 		$time = $log->getInt('time', time());
-		$ua = $log->getInt('ua');
-		$lang = $log->getInt('lang');
+		$ua = $log->get('ua');
+		$lang = $log->get('lang');
 
 		$key_values = array(
 			'token' => '?', 'ip' => '?', 'referer' => '?', 'time' => '?', 'ua' => '?', 'lang' => '?'

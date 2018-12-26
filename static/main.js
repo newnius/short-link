@@ -6,6 +6,11 @@ $(function () {
 
 	$("#form-set-submit").click(function () {
 		var url = $("#form-set-url").val();
+		if (url.length < window.config.URL_MIN_LENGTH || url.length > window.config.URL_MAX_LENGTH) {
+			$("#modal-msg-content").html("网址长度在 " + window.config.URL_MIN_LENGTH + " - " + window.config.URL_MAX_LENGTH);
+			$("#modal-msg").modal('show');
+			return true;
+		}
 		var token = $("#form-set-token").val();
 		if (token.length > 0) {
 			if (token.length < window.config.TOKEN_MIN_LENGTH || token.length > window.config.TOKEN_MAX_LENGTH) {
@@ -29,11 +34,6 @@ $(function () {
 		var valid_to = $('#form-set-valid-to').val();
 		if (valid_to.length !== 0) {
 			valid_to = moment(valid_to).unix();
-		}
-		if (url.length < window.config.URL_MIN_LENGTH || url.length > window.config.URL_MAX_LENGTH) {
-			$("#modal-msg-content").html("网址长度在 " + window.config.URL_MIN_LENGTH + " - " + window.config.URL_MAX_LENGTH);
-			$("#modal-msg").modal('show');
-			return true;
 		}
 		$("#form-set-submit").attr("disabled", "disabled");
 

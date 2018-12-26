@@ -15,6 +15,10 @@ function register_events_link() {
 
 	$("#form-link-submit").click(function (e) {
 		var url = $('#form-link-url').val();
+		if (url.length < window.config.URL_MIN_LENGTH || url.length > window.config.URL_MAX_LENGTH) {
+			$("#form-link-msg").html("网址长度在 " + window.config.URL_MIN_LENGTH + " - " + window.config.URL_MAX_LENGTH);
+			return true;
+		}
 		var token = $('#form-link-token').val();
 		if (token.length > 0) {
 			if (token.length < window.config.TOKEN_MIN_LENGTH || token.length > window.config.TOKEN_MAX_LENGTH) {
@@ -36,10 +40,6 @@ function register_events_link() {
 		var valid_to = $('#form-link-valid-to').val();
 		if (valid_to.length !== 0) {
 			valid_to = moment(valid_to).unix();
-		}
-		if (url.length < window.config.URL_MIN_LENGTH || url.length > window.config.URL_MAX_LENGTH) {
-			$("#form-link-msg").html("网址长度在 " + window.config.URL_MIN_LENGTH + " - " + window.config.URL_MAX_LENGTH);
-			return true;
 		}
 		$("#form-link-submit").attr("disabled", "disabled");
 
