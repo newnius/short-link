@@ -181,7 +181,7 @@ function link_resume(CRObject $link)
 	}
 	$log = new CRObject();
 	$log->set('scope', Session::get('uid'));
-	$log->set('tag', 'link.pause');
+	$log->set('tag', 'link.resume');
 	$content = array('token' => $link->get('token'), 'response' => $res['errno']);
 	$log->set('content', json_encode($content));
 	CRLogger::log($log);
