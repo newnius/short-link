@@ -2,6 +2,8 @@
 
 Shorten long urls
 
+| [English](README.md) | [简体中文](README_zh.md) |
+
 ## features
   - Customized short url
   - Generate related QR code
@@ -27,9 +29,25 @@ Want to deploy this service quickly? Try out this [one click setup](https://gith
 in [QuickDeploy](https://github.com/QuickDeploy/).
 
   - Install requirements
+  - Download the latest [release](https://github.com/newnius/short-link/releases), unzip the tarball
   - Rename `config-sample.inc.php` to `config.inc.php`
   - Customize `config.inc.php` & `static/config.js`
   - Run `install.php` & __Remove__ `install.php`
+  
+#### Configuration Options
+
+| Option | Description |
+| --- | --- |
+| DB_HOST | Mysql host, normally localhost |
+| DB_PORT | Mysql port, normally 3306 |
+| DB_NAME | Mysql database name |
+| DB_USER | Mysql user |
+| DB_PASSWORD | Mysql password |
+| REDIS_HOST | Redis host, normally localhost |
+| REDIS_PORT| Redis listen port, normally 6379 |
+| BASE_URL | Base URL of your site |
+| OAUTH_CLIENT_ID | ClientID |
+| OAUTH_CLIENT_SECRET | ClientSecret |
 
 If you want to run this service not only on localhost, it is required to update the OAuth properties
 `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET`.
@@ -41,7 +59,3 @@ After login, visit `Sites` > `Add` , and add your server ip / domain (without `h
 Click `View`, you can see the `ClientID` and `ClientSecret`.
 
 The OAuth related functions are located at `auth.php`, `user.logic.php`.
-
-## Future Work
-  - Use [ClickHouse](https://github.com/yandex/ClickHouse) to act as the query log system
-  - Use [RabbitMQ](https://github.com/rabbitmq/rabbitmq-server) to log query async and thus speed up the query
