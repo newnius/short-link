@@ -70,6 +70,7 @@ if ($response['errno'] === 0) {
 		Session::put('uid', $user['uid']);
 		Session::put('role', $user['role']);
 		Session::put('nickname', $nickname);
+		Session::persist(SESSION_TIME_OUT);
 
 		$log = new CRObject();
 		$log->set('scope', $user['uid']);
