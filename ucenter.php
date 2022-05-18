@@ -61,7 +61,7 @@ foreach ($entries as $entry) {
 <head>
 	<?php require('head.php'); ?>
 	<title>管理中心 | 短网址生成器</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/bootstrap-table.min.css" rel="stylesheet">
+	<link href="static/lib/bootstrap-table-1.12.1/bootstrap-table.min.css" rel="stylesheet">
 	<script type="text/javascript">
 		var page_type = "<?=$page_type?>";
 	</script>
@@ -188,12 +188,12 @@ foreach ($entries as $entry) {
 	<div class="push"></div>
 </div>
 <?php require('footer.php'); ?>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/bootstrap-table.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.12.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.1/tableExport.min.js"></script>
+<script src="static/lib/chart.js-2.7.3/Chart.min.js"></script>
+<script src="static/lib/bootstrap-table-1.12.1/bootstrap-table.min.js"></script>
+<script src="static/lib/bootstrap-table-1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="static/lib/bootstrap-table-1.12.1/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+<script src="static/lib/bootstrap-table-1.12.1/extensions/export/bootstrap-table-export.min.js"></script>
+<script src="static/lib/tableexport.jquery.plugin-1.10.1/tableExport.min.js"></script>
 
 <script src="static/link.js"></script>
 <script src="static/ucenter.js"></script>
