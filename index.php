@@ -20,6 +20,7 @@ require_once('secure.inc.php');
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a role="tab" href="#main-link-set">缩短</a></li>
 					<li role="presentation"><a role="tab" href="#main-link-get">还原</a></li>
+					<li role="presentation"><a role="tab" href="#main-link-multiset">批量</a></li>
 				</ul>
 				<p>&nbsp;</p>
 				<div id="main-tab-content" class="tab-content">
@@ -88,6 +89,19 @@ require_once('secure.inc.php');
                                     <button id="form-get-submit" type="submit" class="btn btn-default">还原</button>
                                 </span>
 							</div>
+						</form>
+					</div>
+					<div id="main-link-multiset" class="tab-pane fade">
+						<form class="form" action="javascript:void(0)">
+							<div class="input-group-lg">
+								<label for="form-multiset-text" class="sr-only">Token</label>
+								<textarea type="text" id="form-multiset-text"
+								class="form-control"
+								rows="10"
+								placeholder="一行一个链接，不超过50个" required></textarea>
+							</div>
+							<div><span class="text-infp">* 仅对部分用户开放</span></div>
+							<button id="form-multiset-submit" type="submit" class="btn btn-lg btn-default">批量生成</button>
 						</form>
 					</div>
 				</div>

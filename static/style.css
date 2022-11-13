@@ -12,6 +12,15 @@
 	width: 50%;
 }
 
+#form-multiset-text {
+	height: 100%;
+	width: 100%;
+}
+
+#form-multiset-submit {
+	margin-top: 10px;
+}
+
 /* make sticky footer  */
 body, html {
 	height: 100%;
@@ -39,7 +48,8 @@ footer a:hover {
 
 .wrapper {
 	min-height: 100%;
-	margin: 0 auto -36px; /* the bottom margin is the negative value of the footer's height */
+	/* the bottom margin is the negative value of the footer's height */
+	margin: 0 auto -36px;
 }
 
 /* end */

@@ -25,6 +25,7 @@ function csrf_check($action)
 	}
 	$post_methods = array(
 		'set',
+		'multiset',
 		'claim',
 		'update',
 		'remove',
@@ -72,6 +73,17 @@ switch ($action) {
 		$link->set('valid_from', cr_get_POST('valid_from'));
 		$link->set('valid_to', cr_get_POST('valid_to'));
 		$res = link_add($link);
+		break;
+
+	case 'multiset':
+		$urls = cr_get_array_from_POST('urls');
+		$links = array();
+		foreach ($urls as $url) {
+			$link = new CRObject();
+			$link->set('url', $url);
+			$links[] = $link;
+		}
+		$res = link_multiadd($links);
 		break;
 
 	case 'get':

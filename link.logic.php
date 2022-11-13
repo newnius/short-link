@@ -56,6 +56,21 @@ function link_add(CRObject $link)
 	return $res;
 }
 
+function link_multiadd(/* array(CRObject) */ $links) {
+	$res['errno'] = Code::SUCCESS;
+	$url_token_pairs = array();
+	foreach($links as $link) {
+		$r = link_add($link);
+		if ($r['errno'] != Code::SUCCESS) {
+			$res[errno] = $r['errno'];
+			break; # TODO, clean previous
+		}
+		$url_token_pairs[] = array($link->get('url', ''), $r['token']);
+	}
+	$res['url_token_pairs'] = $url_token_pairs;
+	return $res;
+}
+
 function link_remove(CRObject $link)
 {
 	if (!AccessController::hasAccess(Session::get('role', 'visitor'), 'link.remove')) {

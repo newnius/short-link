@@ -48,6 +48,17 @@ function cr_get_POST($key, $default = null)
 	return $default;
 }
 
+/* get from $_POST */
+function cr_get_array_from_POST($key)
+{
+	$result = array();
+	$values = $_POST[$key];
+	foreach ($values as $value) {
+		$result[] = $value;
+	}
+	return $result;
+}
+
 /* get from $_COOKIE */
 function cr_get_COOKIE($key, $default = null)
 {

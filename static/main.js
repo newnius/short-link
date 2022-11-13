@@ -5,7 +5,7 @@ $(function () {
 	});
 
 	$("#form-set-submit").click(function () {
-		var url = $("#form-set-url").val();
+		var url = $.trim($("#form-set-url").val());
 		if (url.length < window.config.URL_MIN_LENGTH || url.length > window.config.URL_MAX_LENGTH) {
 			$("#modal-msg-content").html("网址长度在 " + window.config.URL_MIN_LENGTH + " - " + window.config.URL_MAX_LENGTH);
 			$("#modal-msg").modal('show');
@@ -73,7 +73,7 @@ $(function () {
 		var ajax = $.ajax({
 			url: window.config.BASE_URL + "/service?action=get",
 			type: 'GET',
-			data: {token: token}
+			data: { token: token }
 		});
 		ajax.done(function (res) {
 			if (res["errno"] === 0) {
@@ -86,6 +86,62 @@ $(function () {
 		});
 		ajax.fail(function (jqXHR, textStatus) {
 			$("#form-get-submit").removeAttr("disabled");
+			$("#modal-msg-content").html("Request failed :" + textStatus);
+			$("#modal-msg").modal('show');
+		});
+	});
+
+	$("#form-multiset-submit").click(function () {
+		var lines = $("#form-multiset-text").val().split('\n');
+		var changed = false;
+		var urls = [];
+		for (var i = 0; i < lines.length; i++) {
+			var url = $.trim(lines[i]);
+			if (url.startsWith("#")) { // str start with # is comment
+				changed = true;
+				continue;
+			}
+			if (url.length < window.config.URL_MIN_LENGTH || url.length > window.config.URL_MAX_LENGTH) {
+				changed = true;
+				continue;
+			}
+			urls.push(url);
+		}
+		$("#form-multiset-text").val(urls.join("\n"));
+		if (changed) {
+			$("#modal-msg-content").html("去除了部分无效的链接，请确认后继续提交");
+			$("#modal-msg").modal('show');
+			return false;
+		}
+		$("#form-multiset-submit").attr("disabled", "disabled");
+
+		var ajax = $.ajax({
+			url: window.config.BASE_URL + "/service?action=multiset",
+			type: 'POST',
+			data: {
+				urls: urls
+			}
+		});
+		ajax.done(function (res) {
+			if (res["errno"] === 0) {
+				var links = [];
+				$.each(res['url_token_pairs'], function (index, pair) {
+					links.push(window.config.BASE_URL + '/' + pair[1]);
+				});
+				$("#form-multiset-text").val(links.join("\n"));
+				$("#modal-result-title").text("短网址已生成");
+				$("#modal-result-url").html('<span>（省略）</span>');
+				$("#modal-result-token").html('<span>（见输入框）</span>');
+				$("#modal-result-qrcode").attr("src", "");
+				$("#modal-result").modal("show");
+			} else {
+				$("#modal-msg-content").html(res["msg"]);
+				$("#modal-msg").modal('show');
+			}
+			$("#form-multiset-submit").removeAttr("disabled");
+		});
+		ajax.fail(function (jqXHR, textStatus) {
+			$("#form-multiset-submit").removeAttr("disabled");
 			$("#modal-msg-content").html("Request failed :" + textStatus);
 			$("#modal-msg").modal('show');
 		});
