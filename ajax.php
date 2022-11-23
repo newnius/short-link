@@ -81,6 +81,9 @@ switch ($action) {
 		foreach ($urls as $url) {
 			$link = new CRObject();
 			$link->set('url', $url);
+			$link->set('remark', cr_get_POST('remark'));
+			$link->set('valid_from', cr_get_POST('valid_from'));
+			$link->set('valid_to', cr_get_POST('valid_to'));
 			$links[] = $link;
 		}
 		$res = link_multiadd($links);

@@ -87,6 +87,7 @@ function init_accessMap()
 
 		/* link */
 		'link.set' => array('root', 'admin', 'developer', 'normal', 'visitor'),
+		'link.multiset' => array('root', 'admin', 'developer', 'normal'),
 		'link.get' => array('root', 'admin', 'developer', 'normal', 'visitor'),
 		'link.update' => array('root', 'admin', 'developer', 'normal'),
 		'link.remove' => array('root', 'admin', 'developer', 'normal'),

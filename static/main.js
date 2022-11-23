@@ -113,13 +113,25 @@ $(function () {
 			$("#modal-msg").modal('show');
 			return false;
 		}
+		var remark = $('#form-multiset-remark').val();
+		var valid_from = $('#form-multiset-valid-from').val();
+		if (valid_from.length !== 0) {
+			valid_from = moment(valid_from).unix();
+		}
+		var valid_to = $('#form-multiset-valid-to').val();
+		if (valid_to.length !== 0) {
+			valid_to = moment(valid_to).unix();
+		}
 		$("#form-multiset-submit").attr("disabled", "disabled");
 
 		var ajax = $.ajax({
 			url: window.config.BASE_URL + "/service?action=multiset",
 			type: 'POST',
 			data: {
-				urls: urls
+				urls: urls,
+				remark: remark,
+				valid_from: valid_from,
+				valid_to: valid_to
 			}
 		});
 		ajax.done(function (res) {

@@ -97,8 +97,36 @@ require_once('secure.inc.php');
 								<label for="form-multiset-text" class="sr-only">Token</label>
 								<textarea type="text" id="form-multiset-text"
 								class="form-control"
-								rows="10"
+								rows="10" autocomplete="off"
 								placeholder="一行一个链接，不超过50个" required></textarea>
+							</div>
+							<label>备注（可选）</label>
+							<div class="form-group form-group-lg">
+								<label for="form-multiset-remark" class="sr-only">Custom Token</label>
+								<input type="text" id="form-multiset-remark" class="form-control"
+								       placeholder="短链接备注" autocomplete="off"/>
+							</div>
+							<label>有效期自（可选）</label>
+							<div class="form-group form-group-lg">
+								<div class='input-group date date-picker'>
+									<label for="form-multiset-valid-from" class="sr-only">Valid From</label>
+									<input type='text' class="form-control" placeholder="留空表示不限制"
+									       id="form-multiset-valid-from" autocomplete="off"/>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</div>
+								</div>
+							</div>
+							<label>有效期至（可选）</label>
+							<div class="form-group form-group-lg">
+								<div class='input-group date date-picker'>
+									<label for="form-multiset-valid-to" class="sr-only">Valid To</label>
+									<input type='text' class="form-control" placeholder="留空表示不限制"
+									       id="form-multiset-valid-to" autocomplete="off"/>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</div>
+								</div>
 							</div>
 							<div><span class="text-infp">* 仅对部分用户开放</span></div>
 							<button id="form-multiset-submit" type="submit" class="btn btn-lg btn-default">批量生成</button>
