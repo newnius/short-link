@@ -56,17 +56,18 @@ function link_add(CRObject $link)
 	return $res;
 }
 
-function link_multiadd(/* array(CRObject) */ $links) {
+function link_multiadd(/* array(CRObject) */$links)
+{
 	if (!AccessController::hasAccess(Session::get('role', 'visitor'), 'link.multiset')) {
 		$res['errno'] = Code::NO_PRIVILEGE;
 		return $res;
 	}
 	$res['errno'] = Code::SUCCESS;
 	$url_token_pairs = array();
-	foreach($links as $link) {
+	foreach ($links as $link) {
 		$r = link_add($link);
 		if ($r['errno'] != Code::SUCCESS) {
-			$res[errno] = $r['errno'];
+			$res['errno'] = $r['errno'];
 			break; # TODO, clean previous
 		}
 		$url_token_pairs[] = array($link->get('url', ''), $r['token']);
@@ -290,7 +291,6 @@ function link_get(CRObject $rule)
 			unset($res['token']);
 			unset($res['url']);
 		}
-
 	}
 	return $res;
 }
