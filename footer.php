@@ -20,4 +20,4 @@ require_once('config.inc.php');
 <script src="static/config.js"></script>
 <script src="static/util.js"></script>
 <script src="static/script.js"></script>
-<script async src="https://cdn.newnius.com/ana/ea.js"></script>
+<script async src="https://count.newnius.com/ea.js"></script>

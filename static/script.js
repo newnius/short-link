@@ -24,4 +24,19 @@ $(function () {
 	});
 
 	$('.date-picker').datetimepicker();
+
+	check_login();
 });
+
+function check_login() {
+	var ajax = $.ajax({
+		url: window.config.BASE_URL + "/service?action=check_login",
+		type: 'GET',
+		data: {}
+	});
+	ajax.done(function (res) {
+		if (res['need_redirect']=='true') {
+			$( "#btn-oauth-login" ).trigger( "click" );
+		}
+	});
+}

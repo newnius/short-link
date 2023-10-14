@@ -1,7 +1,9 @@
 <?php
+require_once('predis/autoload.php');
 
 require_once('util4p/util.php');
 require_once('util4p/CRObject.class.php');
+require_once('util4p/ReSession.class.php');
 
 require_once('Code.class.php');
 require_once('Securer.class.php');
@@ -166,6 +168,18 @@ switch ($action) {
 
 	case 'oauth_get_url':
 		$res = oauth_get_url();
+		break;
+
+	case 'check_login':
+		$res['errno'] = Code::NOT_LOGED;
+		$res['auto_redirect'] = 'false';
+		if (Session::get('uid') === null) {
+			if (defined('AUTO_REDIRECT_TO_LOGIN') && AUTO_REDIRECT_TO_LOGIN) {
+				$res['need_redirect'] = 'true';
+			}
+		} else {
+			$res['errno'] = Code::SUCCESS;
+		}
 		break;
 
 	default:

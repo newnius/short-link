@@ -7,6 +7,7 @@ define('TOKEN_MIN_LENGTH', 5);  // custom url min length
 define('TOKEN_MAX_LENGTH', 15); // custom url max length
 define('URL_MIN_LENGTH', 1);    // origin url min length
 define('URL_MAX_LENGTH', 500);  // origin url max length
+define('AUTO_REDIRECT_TO_LOGIN', true);  // redirect to login page if not loged
 
 /* Mysql */
 /* It is not recommended to use `root` in production environment */
