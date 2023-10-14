@@ -44,7 +44,7 @@ define('AUTH_TOKEN_TIMEOUT', 604800); // 7 day
 /* Session */
 define('ENABLE_MULTIPLE_LOGIN', true);
 define('BIND_SESSION_WITH_IP', false);  // current session will be logged when ip changes
-define('SESSION_TIME_OUT', 1800);// 30 minutes 30*60=1800
+define('SESSION_TIME_OUT', 1800); // 30 minutes 30*60=1800
 define('ENABLE_COOKIE', true);
 
 /* Rate Limit */
@@ -54,7 +54,7 @@ define('RATE_LIMIT_PREFIX', 'rl');
 /* Email */
 define('ENABLE_EMAIL_ANTISPAM', true);
 //define('MAXIMUM_EMAIL_PER_IP', 8);
-define('MAXIMUM_EMAIL_PER_EMAIL', 5);//last 24 hours
+define('MAXIMUM_EMAIL_PER_EMAIL', 5); //last 24 hours
 define('SENDGRID_API_KEY', '');
 define('EMAIL_FROM', 'service@example.com');
 

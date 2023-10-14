@@ -36,7 +36,7 @@ class Counter
 	public static function query(CRObject $filter)
 	{
 		$token = $filter->get('token');
-		$interval = $filter->getInt('interval', 1);// default 5 min
+		$interval = $filter->getInt('interval', 1); // default 5 min
 		if ($interval <= 0) {
 			$interval = 1;
 		}
@@ -51,5 +51,4 @@ class Counter
 		$logs = (new MysqlPDO())->executeQuery($sql, $params);
 		return $logs;
 	}
-
 }

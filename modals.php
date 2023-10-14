@@ -16,7 +16,7 @@
 							<p>你知道吗？登录后可以查看链接访问统计、修改、删除链接</p>
 						</div>
 						<div class="col-md-6 col-sm-6 hidden-xs">
-							<img id="modal-result-qrcode" src=""/>
+							<img id="modal-result-qrcode" src="" />
 						</div>
 					</div>
 				</div>
@@ -58,9 +58,7 @@
 					<label>原始网址</label>
 					<div class="form-group form-group-lg">
 						<label for="form-link-url" class="sr-only">Shorten</label>
-						<input type="text" id="form-link-url" class="form-control"
-						       maxlength="500" placeholder="在此输入想要缩短的网址"
-						       required autofocus autocomplete="off"/>
+						<input type="text" id="form-link-url" class="form-control" maxlength="500" placeholder="在此输入想要缩短的网址" required autofocus autocomplete="off" />
 					</div>
 					<label>自定义短链（可选）</label>
 					<div class="form-group input-group input-group-lg">
@@ -68,22 +66,18 @@
 							<span><?= BASE_URL ?>/</span>
 						</div>
 						<label for="form-link-token" class="sr-only">Custom Token</label>
-						<input type="text" id="form-link-token" class="form-control"
-						       minlength="5" maxlength="15"
-						       placeholder="字母、数字，5-15位" autocomplete="off"/>
+						<input type="text" id="form-link-token" class="form-control" minlength="5" maxlength="15" placeholder="字母、数字，5-15位" autocomplete="off" />
 					</div>
 					<label>备注（可选）</label>
 					<div class="form-group form-group-lg">
 						<label for="form-link-remark" class="sr-only">Custom Token</label>
-						<input type="text" id="form-link-remark" class="form-control"
-						       placeholder="短链接备注" autocomplete="off"/>
+						<input type="text" id="form-link-remark" class="form-control" placeholder="短链接备注" autocomplete="off" />
 					</div>
 					<label>有效期自（可选）</label>
 					<div class="form-group form-group-lg">
 						<div class='input-group date date-picker'>
 							<label for="form-link-valid-from" class="sr-only">Valid From</label>
-							<input type='text' class="form-control" placeholder="留空表示不限制" id="form-link-valid-from"
-							       autocomplete="off"/>
+							<input type='text' class="form-control" placeholder="留空表示不限制" id="form-link-valid-from" autocomplete="off" />
 							<div class="input-group-addon">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</div>
@@ -93,15 +87,14 @@
 					<div class="form-group form-group-lg">
 						<div class='input-group date date-picker'>
 							<label for="form-link-valid-to" class="sr-only">Valid To</label>
-							<input type='text' class="form-control" placeholder="留空表示不限制" id="form-link-valid-to"
-							       autocomplete="off"/>
+							<input type='text' class="form-control" placeholder="留空表示不限制" id="form-link-valid-to" autocomplete="off" />
 							<div class="input-group-addon">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</div>
 						</div>
 					</div>
 					<div>
-						<input type='hidden' class="form-control" id="form-link-submit-type"/>
+						<input type='hidden' class="form-control" id="form-link-submit-type" />
 						<button id="form-link-submit" type="submit" class="btn btn-primary btn-lg">保&nbsp;存</button>
 						&nbsp;
 						<button id="form-link-remove" type="submit" class="btn btn-default btn-lg">删&nbsp;除</button>
@@ -115,8 +108,7 @@
 </div>
 
 <!-- analytics modal -->
-<div class="modal fade" id="modal-analytics" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="modal-analytics" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content panel-default">
 			<div class="modal-header panel-heading">

@@ -59,5 +59,4 @@ class Cache
 		$redis->disconnect();
 		return true;
 	}
-
 }

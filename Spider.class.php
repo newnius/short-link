@@ -54,7 +54,7 @@ class Spider
 					if ($i === 0)
 						$headers[$index]['http_code'] = $line;
 					else {
-						list ($key, $value) = explode(': ', $line);
+						list($key, $value) = explode(': ', $line);
 						$headers[$index][$key] = $value;
 					}
 				}
@@ -100,7 +100,7 @@ class Spider
 					if ($i === 0)
 						$headers[$index]['http_code'] = $line;
 					else {
-						list ($key, $value) = explode(': ', $line);
+						list($key, $value) = explode(': ', $line);
 						$headers[$index][$key] = $value;
 					}
 				}

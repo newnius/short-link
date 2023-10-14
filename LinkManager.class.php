@@ -114,5 +114,4 @@ class LinkManager
 		$params = array($url, $remark, $valid_from, $valid_to, $status, $token);
 		return (new MysqlPDO())->execute($sql, $params);
 	}
-
 }

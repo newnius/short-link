@@ -32,5 +32,4 @@ class Securer
 		setcookie('csrf_token', Random::randomString(32));
 		return $success;
 	}
-
 }

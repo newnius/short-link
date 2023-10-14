@@ -23,22 +23,16 @@ $nickname = Session::get('nickname');
 
 if (isset($_GET['logs'])) {
 	$page_type = 'logs';
-
 } elseif (isset($_GET['logs_all'])) {
 	$page_type = 'logs_all';
-
 } elseif (isset($_GET['links'])) {
 	$page_type = 'links';
-
 } elseif (isset($_GET['links_all'])) {
 	$page_type = 'links_all';
-
 } elseif (isset($_GET['visitors'])) {
 	$page_type = 'visitors';
-
 } elseif (isset($_GET['home'])) {
 	$page_type = 'home';
-
 }
 
 $entries = array(
@@ -58,42 +52,29 @@ foreach ($entries as $entry) {
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
 	<?php require('head.php'); ?>
 	<title>管理中心 | 短网址生成器</title>
 	<link href="static/lib/bootstrap-table-1.12.1/bootstrap-table.min.css" rel="stylesheet">
 	<script type="text/javascript">
-		var page_type = "<?=$page_type?>";
+		var page_type = "<?= $page_type ?>";
 	</script>
 </head>
 
 <body>
-<div class="wrapper">
-	<?php require('header.php'); ?>
-	<?php require('modals.php'); ?>
-	<div class="container">
-		<div class="row">
+	<div class="wrapper">
+		<?php require('header.php'); ?>
+		<?php require('modals.php'); ?>
+		<div class="container">
+			<div class="row">
 
-			<div class="hidden-xs hidden-sm col-md-2 col-lg-2">
-				<div class="panel panel-default">
-					<div class="panel-heading">Menu Bar</div>
-					<ul class="nav nav-pills nav-stacked panel-body">
-						<?php foreach ($visible_entries as $entry) { ?>
-							<li role="presentation" <?php if ($page_type == $entry[0]) echo 'class="disabled"'; ?> >
-								<a href="?<?= $entry[0] ?>"><?= $entry[1] ?></a>
-							</li>
-						<?php } ?>
-					</ul>
-				</div>
-			</div>
-
-			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-				<div class="visible-xs visible-sm">
+				<div class="hidden-xs hidden-sm col-md-2 col-lg-2">
 					<div class="panel panel-default">
 						<div class="panel-heading">Menu Bar</div>
-						<ul class="nav nav-pills panel-body">
+						<ul class="nav nav-pills nav-stacked panel-body">
 							<?php foreach ($visible_entries as $entry) { ?>
-								<li role="presentation" <?php if ($page_type == $entry[0]) echo 'class="disabled"'; ?> >
+								<li role="presentation" <?php if ($page_type == $entry[0]) echo 'class="disabled"'; ?>>
 									<a href="?<?= $entry[0] ?>"><?= $entry[1] ?></a>
 								</li>
 							<?php } ?>
@@ -101,101 +82,116 @@ foreach ($entries as $entry) {
 					</div>
 				</div>
 
-				<?php if ($page_type === 'home') { ?>
-					<div id="home">
+				<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+					<div class="visible-xs visible-sm">
 						<div class="panel panel-default">
-							<div class="panel-heading">欢迎页</div>
-							<div class="panel-body">
-								欢迎回来， <?php echo htmlspecialchars($nickname) ?>.<br/>
-								现在时刻: &nbsp; <?php echo date('H:i:s', time()) ?>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">通知</div>
-							<div class="panel-body">
-								<h4 class="text-info">通知</h4>
-								<p>Nothing new here.</p>
-							</div>
+							<div class="panel-heading">Menu Bar</div>
+							<ul class="nav nav-pills panel-body">
+								<?php foreach ($visible_entries as $entry) { ?>
+									<li role="presentation" <?php if ($page_type == $entry[0]) echo 'class="disabled"'; ?>>
+										<a href="?<?= $entry[0] ?>"><?= $entry[1] ?></a>
+									</li>
+								<?php } ?>
+							</ul>
 						</div>
 					</div>
 
-				<?php } elseif ($page_type === 'links' || $page_type === 'links_all') { ?>
-					<div id="links">
-						<div class="panel panel-default">
-							<div class="panel-heading">短链接列表</div>
-							<div class="panel-body">
-								<div class="table-responsive">
-									<div id="toolbar">
-										<button id="btn-link-add" class="btn btn-primary">
-											<i class="glyphicon glyphicon-plus"></i> 添加短链接
-										</button>
+					<?php if ($page_type === 'home') { ?>
+						<div id="home">
+							<div class="panel panel-default">
+								<div class="panel-heading">欢迎页</div>
+								<div class="panel-body">
+									欢迎回来， <?php echo htmlspecialchars($nickname) ?>.<br />
+									现在时刻: &nbsp; <?php echo date('H:i:s', time()) ?>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">通知</div>
+								<div class="panel-body">
+									<h4 class="text-info">通知</h4>
+									<p>Nothing new here.</p>
+								</div>
+							</div>
+						</div>
+
+					<?php } elseif ($page_type === 'links' || $page_type === 'links_all') { ?>
+						<div id="links">
+							<div class="panel panel-default">
+								<div class="panel-heading">短链接列表</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<div id="toolbar">
+											<button id="btn-link-add" class="btn btn-primary">
+												<i class="glyphicon glyphicon-plus"></i> 添加短链接
+											</button>
+										</div>
+										<table id="table-link" data-toolbar="#toolbar" class="table table-striped">
+										</table>
 									</div>
-									<table id="table-link" data-toolbar="#toolbar" class="table table-striped">
+								</div>
+							</div>
+						</div>
+
+					<?php } elseif ($page_type === 'logs' || $page_type === 'logs_all') { ?>
+						<div id="logs">
+							<div class="panel panel-default">
+								<div class="panel-heading">日志</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<div id="toolbar"></div>
+										<table id="table-log" data-toolbar="#toolbar" class="table table-striped">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					<?php } elseif ($page_type === 'visitors') { ?>
+						<div id="visitors">
+							<div class="panel panel-default">
+								<div class="panel-heading">访问量统计</div>
+								<div class="panel-body">
+									<table class="table table-striped table-bordered">
+										<tr>
+											<th>全站 PV</th>
+											<td><span class="cr_count_site_pv">Loading</span></td>
+										</tr>
+										<tr>
+											<th>全站 UV</th>
+											<td><span class="cr_count_site_uv">Loading</span></td>
+										</tr>
+										<tr>
+											<th>今日 PV</th>
+											<td><span class="cr_count_site_pv_24h">Loading</span></td>
+										</tr>
+										<tr>
+											<th>今日 UV</th>
+											<td><span class="cr_count_site_uv_24h">Loading</span></td>
+										</tr>
 									</table>
 								</div>
 							</div>
 						</div>
-					</div>
 
-				<?php } elseif ($page_type === 'logs' || $page_type === 'logs_all') { ?>
-					<div id="logs">
-						<div class="panel panel-default">
-							<div class="panel-heading">日志</div>
-							<div class="panel-body">
-								<div class="table-responsive">
-									<div id="toolbar"></div>
-									<table id="table-log" data-toolbar="#toolbar" class="table table-striped">
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
+					<?php } ?>
 
-				<?php } elseif ($page_type === 'visitors') { ?>
-					<div id="visitors">
-						<div class="panel panel-default">
-							<div class="panel-heading">访问量统计</div>
-							<div class="panel-body">
-								<table class="table table-striped table-bordered">
-									<tr>
-										<th>全站 PV</th>
-										<td><span class="cr_count_site_pv">Loading</span></td>
-									</tr>
-									<tr>
-										<th>全站 UV</th>
-										<td><span class="cr_count_site_uv">Loading</span></td>
-									</tr>
-									<tr>
-										<th>今日 PV</th>
-										<td><span class="cr_count_site_pv_24h">Loading</span></td>
-									</tr>
-									<tr>
-										<th>今日 UV</th>
-										<td><span class="cr_count_site_uv_24h">Loading</span></td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-
-				<?php } ?>
-
+				</div>
 			</div>
-		</div>
-	</div> <!-- /container -->
+		</div> <!-- /container -->
 
-	<!--This div exists to avoid footer from covering main body-->
-	<div class="push"></div>
-</div>
-<?php require('footer.php'); ?>
-<script src="static/lib/chart.js-2.7.3/Chart.min.js"></script>
-<script src="static/lib/bootstrap-table-1.12.1/bootstrap-table.min.js"></script>
-<script src="static/lib/bootstrap-table-1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="static/lib/bootstrap-table-1.12.1/extensions/mobile/bootstrap-table-mobile.min.js"></script>
-<script src="static/lib/bootstrap-table-1.12.1/extensions/export/bootstrap-table-export.min.js"></script>
-<script src="static/lib/tableexport.jquery.plugin-1.10.1/tableExport.min.js"></script>
+		<!--This div exists to avoid footer from covering main body-->
+		<div class="push"></div>
+	</div>
+	<?php require('footer.php'); ?>
+	<script src="static/lib/chart.js-2.7.3/Chart.min.js"></script>
+	<script src="static/lib/bootstrap-table-1.12.1/bootstrap-table.min.js"></script>
+	<script src="static/lib/bootstrap-table-1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="static/lib/bootstrap-table-1.12.1/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+	<script src="static/lib/bootstrap-table-1.12.1/extensions/export/bootstrap-table-export.min.js"></script>
+	<script src="static/lib/tableexport.jquery.plugin-1.10.1/tableExport.min.js"></script>
 
-<script src="static/link.js"></script>
-<script src="static/ucenter.js"></script>
+	<script src="static/link.js"></script>
+	<script src="static/ucenter.js"></script>
 </body>
+
 </html>

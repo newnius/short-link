@@ -32,10 +32,9 @@ function execute_sqls($sqls)
 function create_table_user()
 {
 	$sqls = array(
-//		'DROP `ls_user`' =>
-//			'DROP TABLE IF EXISTS `ls_user`',
+		//		'DROP `ls_user`' => 'DROP TABLE IF EXISTS `ls_user`',
 		'CREATE `ls_user`' =>
-			'CREATE TABLE `ls_user`(
+		'CREATE TABLE `ls_user`(
 				`uid` int AUTO_INCREMENT,
 				 PRIMARY KEY (`uid`),
 				`open_id` varchar(64) NOT NULL,
@@ -52,9 +51,9 @@ function create_table_user()
 function create_table_link()
 {
 	$sqls = array(
-//        'DROP `ls_link`' => 'DROP TABLE IF EXISTS `ls_link`',
+		//        'DROP `ls_link`' => 'DROP TABLE IF EXISTS `ls_link`',
 		'CREATE `ls_link`' =>
-			'CREATE TABLE `ls_link`(
+		'CREATE TABLE `ls_link`(
 				`token` VARCHAR(15) NOT NULL,
 				 PRIMARY KEY(`token`),
 				 INDEX(`token`),
@@ -75,9 +74,9 @@ function create_table_link()
 function create_table_log()
 {
 	$sqls = array(
-//		'DROP `ls_log`' => 'DROP TABLE IF EXISTS `ls_log`',
+		//		'DROP `ls_log`' => 'DROP TABLE IF EXISTS `ls_log`',
 		'CREATE `ls_log`' =>
-			'CREATE TABLE `ls_log`(
+		'CREATE TABLE `ls_log`(
 		  		`id` BIGINT AUTO_INCREMENT,
 	  			 PRIMARY KEY(`id`),
 				`scope` VARCHAR(128) NOT NULL,
@@ -98,9 +97,9 @@ function create_table_log()
 function create_table_query_log()
 {
 	$sqls = array(
-//		'DROP `ls_query_log`' => 'DROP TABLE IF EXISTS `ls_query_log`',
+		//		'DROP `ls_query_log`' => 'DROP TABLE IF EXISTS `ls_query_log`',
 		'CREATE `ls_query_log`' =>
-			'CREATE TABLE `ls_query_log`(
+		'CREATE TABLE `ls_query_log`(
 		  		`id` BIGINT AUTO_INCREMENT,
 	  			 PRIMARY KEY(`id`),
 				`token` VARCHAR(15) NOT NULL,

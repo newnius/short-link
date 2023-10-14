@@ -7,8 +7,7 @@ require_once('init.inc.php');
 <header id="header" class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-			        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -24,8 +23,7 @@ require_once('init.inc.php');
 					<li><a href="<?= BASE_URL ?>/ucenter"><?= htmlspecialchars(Session::get('nickname')) ?></a></li>
 				<?php } ?>
 				<li class="dropdown">
-					<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
-					   aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
+					<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="<?= BASE_URL ?>/help">帮助</a></li>
 						<li role="separator" class="divider"></li>
