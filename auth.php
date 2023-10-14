@@ -68,7 +68,12 @@ if ($response['errno'] === 0) {
 	if ($res['errno'] === 0) {
 		$user = $res['user'];
 		Session::put('uid', $user['uid']);
-		Session::put('role', $user['role']);
+		if (defined('OAUTH_FOLLOW_ROLE') && OAUTH_FOLLOW_ROLE) {
+			Session::put('role', $role);
+		} else {
+			Session::put('role', $user['role']);
+		}
+
 		Session::put('nickname', $nickname);
 		Session::persist(SESSION_TIME_OUT);
 

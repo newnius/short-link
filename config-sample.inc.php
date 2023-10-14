@@ -7,7 +7,7 @@ define('TOKEN_MIN_LENGTH', 5);  // custom url min length
 define('TOKEN_MAX_LENGTH', 15); // custom url max length
 define('URL_MIN_LENGTH', 1);    // origin url min length
 define('URL_MAX_LENGTH', 500);  // origin url max length
-define('AUTO_REDIRECT_TO_LOGIN', true);  // redirect to login page if not loged
+define('AUTO_REDIRECT_TO_LOGIN', false);  // redirect to login page if not loged
 
 /* Mysql */
 /* It is not recommended to use `root` in production environment */
@@ -64,6 +64,7 @@ define('EMAIL_FROM', 'service@example.com');
 define('OAUTH_SITE', 'https://quickauth.newnius.com');
 define('OAUTH_CLIENT_ID', 'XgaII6NxeE08LtKB');
 define('OAUTH_CLIENT_SECRET', 'L9hdi4dQToM0GsDLtcYYQ3k4ZDEjuGVOtPS3nOVKlo6cxLcVjH9TqvmTBiHAgLp2');
+define('OAUTH_FOLLOW_ROLE', false); // use role from OAuth
 
 
 header("content-type:text/html; charset=utf-8");
