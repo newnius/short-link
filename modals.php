@@ -58,7 +58,7 @@
 					<label>原始网址</label>
 					<div class="form-group form-group-lg">
 						<label for="form-link-url" class="sr-only">Shorten</label>
-						<input type="text" id="form-link-url" class="form-control" maxlength="500" placeholder="在此输入想要缩短的网址" required autofocus autocomplete="off" />
+						<input type="text" id="form-link-url" class="form-control" maxlength="<?= URL_MAX_LENGTH ?>" placeholder="在此输入想要缩短的网址" required autofocus autocomplete="off" />
 					</div>
 					<label>自定义短链（可选）</label>
 					<div class="form-group input-group input-group-lg">
@@ -66,7 +66,7 @@
 							<span><?= BASE_URL ?>/</span>
 						</div>
 						<label for="form-link-token" class="sr-only">Custom Token</label>
-						<input type="text" id="form-link-token" class="form-control" minlength="5" maxlength="15" placeholder="字母、数字，5-15位" autocomplete="off" />
+						<input type="text" id="form-link-token" class="form-control" minlength="<?= TOKEN_MIN_LENGTH ?>" maxlength="<?= TOKEN_MAX_LENGTH ?>" placeholder="字母、数字，<?= TOKEN_MIN_LENGTH ?>-<?= TOKEN_MAX_LENGTH ?>位" autocomplete="off" />
 					</div>
 					<label>备注（可选）</label>
 					<div class="form-group form-group-lg">
